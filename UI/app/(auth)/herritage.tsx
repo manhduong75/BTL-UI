@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 // import { StyleSheet, View, Text } from "react-native";
 
-import { StyleSheet, View, TextInput, TouchableOpacity, Text, Image, FlatList, Button } from "react-native";
+import { StyleSheet, View, TextInput, TouchableOpacity, Text, Image, FlatList, Button, ScrollView } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
 const Herritage = () => {
@@ -25,17 +25,17 @@ const Herritage = () => {
     { id: 9, uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Thanhbanphu.jpg/330px-Thanhbanphu.jpg', text:"Thành Bản Phủ (đền thờ Hoàng Công Chất)" },
   ]);
 
-  const itemsPerPage = 4;
   const itemsPerRow = 2;
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  // const itemsPerPage = 4;
+  // const indexOfLastItem = currentPage * itemsPerPage;
+  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  // const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const totalPages = Math.ceil(data.length / itemsPerRow);
 
-  const goToPage = (page : number ) => {
-    setCurrentPage(page);
-  };
+  // const goToPage = (page : number ) => {
+  //   setCurrentPage(page);
+  // };
 
   const renderImageItem = ({ item }: { item: { id: number, uri: string, text: string } }) => (
     <View style={styles.imageContainer} >
@@ -44,77 +44,77 @@ const Herritage = () => {
     </View>
   );
 
-  const renderPaginationButtons = () => {
-    const buttons = [];
+  // const renderPaginationButtons = () => {
+  //   const buttons = [];
 
-    // Nút trang đầu
-    if(currentPage > 2){
-        buttons.push(
-        <Button
-            key="first"
-            title="1"
-            onPress={() => goToPage(1)}
-            disabled={currentPage === 1}
-            color="gray"
-        />
-        );
-    }
+  //   // Nút trang đầu
+  //   if(currentPage > 2){
+  //       buttons.push(
+  //       <Button
+  //           key="first"
+  //           title="1"
+  //           onPress={() => goToPage(1)}
+  //           disabled={currentPage === 1}
+  //           color="gray"
+  //       />
+  //       );
+  //   }
 
-    // Nút trang trước
-    if (currentPage > 3) {
-      buttons.push(
-        <Button
-          key="previous"
-          title="..."
-          onPress={() => goToPage(currentPage - 1)}
-          color="gray"
-        />
-      );
-    }
+  //   // Nút trang trước
+  //   if (currentPage > 3) {
+  //     buttons.push(
+  //       <Button
+  //         key="previous"
+  //         title="..."
+  //         onPress={() => goToPage(currentPage - 1)}
+  //         color="gray"
+  //       />
+  //     );
+  //   }
 
-    // Nút các trang
-    for (let i = Math.max(1, currentPage - 1); i <= Math.min(totalPages, currentPage + 1); i++) {
-      buttons.push(
-        <Button
-          key={i}
-          title={`${i}`}
-          onPress={() => goToPage(i)}
-          disabled={currentPage === i}
-          color="gray"
-        />
-      );
-    }
+  //   // Nút các trang
+  //   for (let i = Math.max(1, currentPage - 1); i <= Math.min(totalPages, currentPage + 1); i++) {
+  //     buttons.push(
+  //       <Button
+  //         key={i}
+  //         title={`${i}`}
+  //         onPress={() => goToPage(i)}
+  //         disabled={currentPage === i}
+  //         color="gray"
+  //       />
+  //     );
+  //   }
 
-    // Nút trang sau
-    if (currentPage < totalPages - 2) {
-      buttons.push(
-        <Button
-          key="next"
-          title="..."
-          onPress={() => goToPage(currentPage + 1)}
-          color="gray"
-        />
-      );
-    }
+  //   // Nút trang sau
+  //   if (currentPage < totalPages - 2) {
+  //     buttons.push(
+  //       <Button
+  //         key="next"
+  //         title="..."
+  //         onPress={() => goToPage(currentPage + 1)}
+  //         color="gray"
+  //       />
+  //     );
+  //   }
 
-    // Nút trang cuối
-    if (currentPage < totalPages - 1 ){
-        buttons.push(
-        <Button
-            key="last"
-            title={totalPages.toString()}
-            onPress={() => goToPage(totalPages)}
-            disabled={currentPage === totalPages}
-            color="gray"
-        />
-        );
-    }
+  //   // Nút trang cuối
+  //   if (currentPage < totalPages - 1 ){
+  //       buttons.push(
+  //       <Button
+  //           key="last"
+  //           title={totalPages.toString()}
+  //           onPress={() => goToPage(totalPages)}
+  //           disabled={currentPage === totalPages}
+  //           color="gray"
+  //       />
+  //       );
+  //   }
 
-    return buttons;
-  };
+  //   return buttons;
+  // };
 
   return (
-    <View>
+    <ScrollView>
       <View style={styles.container}>
         <View style={styles.searchContainer}>
           <TextInput
@@ -129,16 +129,16 @@ const Herritage = () => {
         </View>
       </View>
       <FlatList
-        data={currentItems}
+        data={data}
         renderItem={renderImageItem}
         keyExtractor={item => item.id.toString()}
         numColumns={itemsPerRow}
         contentContainerStyle={styles.list}
       />  
-      <View style={styles.paginationContainer}>
+      {/* <View style={styles.paginationContainer}>
         {renderPaginationButtons()}
-      </View>
-    </View>
+      </View> */}
+    </ScrollView>
   );
 };
 
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
   },
   list: {
     padding: 10,
-    height: 520,
+    // height: 1200,
   },
   imageContainer: {
     flex: 1,
