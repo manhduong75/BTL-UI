@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, StyleSheet, View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import { FlatList, StyleSheet, View, Text, TextInput, TouchableOpacity, Image, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
@@ -42,6 +42,7 @@ const festivals = [
 
 const Festival = () => {
   return (
+    <ScrollView style={styles.container}>
     <View>
       <View style = {styles.searchSectionWrapper}>
         <View style = {styles.searchBar}>
@@ -65,11 +66,8 @@ const Festival = () => {
           )}
         />
       </View>
-      
-      <View>
-        <Text>Footer</Text>
-      </View>
     </View>
+    </ScrollView>
   );
 };
 
@@ -95,6 +93,10 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     marginLeft: 5,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: Colors.white,
   },
 });
 
