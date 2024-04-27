@@ -76,11 +76,11 @@ const TabsPage = () => {
       <Tabs.Screen
         name="profile"
         options={{
-          headerTitle: "My Profile",
+          headerTitle: "Cá nhân",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-outline" size={size} color={color} />
           ),
-          tabBarLabel: "Cài đặt",
+          tabBarLabel: "Cá nhân",
           headerRight: () => <LogoutButton />,
         }}
         redirect={!isSignedIn}
