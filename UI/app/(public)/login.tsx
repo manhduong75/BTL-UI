@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginBottom: 4,
     fontSize: 16,
+    width: "100%",
   },
   inputField: {
     flexDirection: "row",
