@@ -70,6 +70,7 @@ const TabsPage = () => {
             <Ionicons name="apps-outline" size={size} color={color} />
           ),
           tabBarLabel: "Dịch vụ",
+          headerShown: false,
         }}
         redirect={!isSignedIn}
       />
