@@ -15,19 +15,19 @@ const PublicLayout = () => {
       <Stack.Screen
         name="login"
         options={{
-          headerTitle: "Login",
+          headerTitle: "Di tích Điện Biên",
         }}
       ></Stack.Screen>
       <Stack.Screen
         name="register"
         options={{
-          headerTitle: "Create Account",
+          headerTitle: "Tạo tài khoản",
         }}
       ></Stack.Screen>
       <Stack.Screen
         name="reset"
         options={{
-          headerTitle: "Reset Password",
+          headerTitle: "Cài đặt lại mật khẩu",
         }}
       ></Stack.Screen>
     </Stack>

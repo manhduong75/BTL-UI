@@ -32,7 +32,7 @@ const PwReset = () => {
         password,
       });
       console.log(result);
-      alert("Password reset successfully");
+      alert("Mât khẩu đã được thay đổi thành công!");
 
       // Set the user session active, which will log in the user automatically
       await setActive!({ session: result.createdSessionId });
@@ -49,7 +49,7 @@ const PwReset = () => {
         <>
           <TextInput
             autoCapitalize="none"
-            placeholder="your.email@gmail.com"
+            placeholder="Email của bạn"
             value={emailAddress}
             onChangeText={setEmailAddress}
             style={styles.inputField}
@@ -57,7 +57,7 @@ const PwReset = () => {
 
           <Button
             onPress={onRequestReset}
-            title="Send Reset Email"
+            title="Gửi mã xác nhận qua email"
             color={"#2E82FF"}
           ></Button>
         </>
@@ -68,12 +68,12 @@ const PwReset = () => {
           <View>
             <TextInput
               value={code}
-              placeholder="Code..."
+              placeholder="Mã xác thực..."
               style={styles.inputField}
               onChangeText={setCode}
             />
             <TextInput
-              placeholder="New password"
+              placeholder="Mật khẩu mới"
               value={password}
               onChangeText={setPassword}
               secureTextEntry
@@ -98,11 +98,11 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   inputField: {
-    marginVertical: 4,
+    marginVertical: 16,
     height: 50,
     borderWidth: 1,
-    borderColor: "#6c47ff",
-    borderRadius: 4,
+    borderColor: "grey",
+    borderRadius: 8,
     padding: 10,
     backgroundColor: "#fff",
   },
