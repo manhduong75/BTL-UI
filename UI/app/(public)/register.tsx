@@ -8,6 +8,8 @@ const register = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
 
   const [emailAddress, setEmailAddress] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [password, setPassword] = useState("");
   const [pendingVerification, setPendingVerification] = useState(false);
   const [code, setCode] = useState("");
@@ -23,6 +25,8 @@ const register = () => {
       // Create the user on Clerk
       await signUp.create({
         emailAddress,
+        lastName,
+        firstName,
         password,
       });
 
@@ -69,6 +73,20 @@ const register = () => {
             placeholder="Email"
             value={emailAddress}
             onChangeText={setEmailAddress}
+            style={styles.inputField}
+          />
+          <TextInput
+            autoCapitalize="none"
+            placeholder="Họ"
+            value={firstName}
+            onChangeText={setFirstName}
+            style={styles.inputField}
+          />
+          <TextInput
+            autoCapitalize="none"
+            placeholder="Tên"
+            value={lastName}
+            onChangeText={setLastName}
             style={styles.inputField}
           />
           <TextInput
