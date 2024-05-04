@@ -14,7 +14,9 @@ const Service = () => {
     <View style={styles.container}>
       <View>
         <Link href="/service/ticket" asChild>
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity
+            style={{ ...styles.item, backgroundColor: "#33b055" }}
+          >
             <Fontisto name="ticket" size={29} color="white" />
           </TouchableOpacity>
         </Link>
@@ -23,7 +25,9 @@ const Service = () => {
 
       <View>
         <Link href="/service/food" asChild>
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity
+            style={{ ...styles.item, backgroundColor: "#a232e3" }}
+          >
             <MaterialCommunityIcons
               name="food-turkey"
               size={29}
@@ -36,7 +40,9 @@ const Service = () => {
 
       <View>
         <Link href="/service/electricCar" asChild>
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity
+            style={{ ...styles.item, backgroundColor: "#2297e0" }}
+          >
             <MaterialIcons name="electric-car" size={29} color="white" />
           </TouchableOpacity>
         </Link>
@@ -45,7 +51,9 @@ const Service = () => {
 
       <View>
         <Link href="/service/tour" asChild>
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity
+            style={{ ...styles.item, backgroundColor: "#e6ae2e" }}
+          >
             <MaterialCommunityIcons
               name="transit-detour"
               size={29}
@@ -58,7 +66,9 @@ const Service = () => {
 
       <View>
         <Link href="/service/photo" asChild>
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity
+            style={{ ...styles.item, backgroundColor: "#f0435a" }}
+          >
             <Entypo name="camera" size={29} color="white" />
           </TouchableOpacity>
         </Link>
@@ -78,18 +88,22 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: "#2E82FF",
-    width: 80,
-    height: 80,
+    width: 70,
+    height: 70,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 50,
-    margin: 15,
+    margin: 20,
     marginBottom: 10,
+    shadowOpacity: 5,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 10 },
+    elevation: 5,
   },
   title: {
     textAlign: "center",
     color: "black",
-    fontWeight: "bold",
+    fontWeight: "400",
     marginBottom: 30,
   },
 });
