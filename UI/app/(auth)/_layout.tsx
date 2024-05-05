@@ -1,7 +1,14 @@
 import { Tabs } from "expo-router";
-import { Ionicons, SimpleLineIcons, MaterialIcons } from "@expo/vector-icons";
+import {
+  Ionicons,
+  FontAwesome5,
+  MaterialIcons,
+  AntDesign,
+  Entypo,
+} from "@expo/vector-icons";
 import { Pressable } from "react-native";
 import { useAuth } from "@clerk/clerk-expo";
+import React from "react";
 
 export const LogoutButton = () => {
   const { signOut } = useAuth();
@@ -27,16 +34,27 @@ const TabsPage = () => {
           backgroundColor: "#2E82FF",
         },
         headerTintColor: "#fff",
+        tabBarStyle: {
+          borderWidth: 0,
+          borderRadius: 0,
+          height: 70,
+          paddingBottom: 10,
+          position: "absolute",
+        },
       }}
     >
       <Tabs.Screen
         name="herritage"
         options={{
           headerTitle: "Di tích",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="temple-buddhist" size={size} color={color} />
           ),
           tabBarLabel: "Di tích",
+          tabBarLabelStyle: {
+            fontSize: 12,
+          },
         }}
         redirect={!isSignedIn}
       />
@@ -44,10 +62,14 @@ const TabsPage = () => {
         name="festival"
         options={{
           headerTitle: "Sự kiện",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <SimpleLineIcons name="event" size={size} color={color} />
+            <FontAwesome5 name="calendar-day" size={24} color={color} />
           ),
           tabBarLabel: "Sự kiện",
+          tabBarLabelStyle: {
+            fontSize: 12,
+          },
         }}
         redirect={!isSignedIn}
       />
@@ -55,10 +77,14 @@ const TabsPage = () => {
         name="home"
         options={{
           headerTitle: "Trang chủ",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home-outline" size={size} color={color} />
+            <Entypo name="home" size={size + 3} color={color} />
           ),
           tabBarLabel: "Trang chủ",
+          tabBarLabelStyle: {
+            fontSize: 12,
+          },
         }}
         redirect={!isSignedIn}
       />
@@ -67,10 +93,13 @@ const TabsPage = () => {
         options={{
           headerTitle: "Dịch vụ",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="apps-outline" size={size} color={color} />
+            <AntDesign name="appstore1" size={size} color={color} />
           ),
           tabBarLabel: "Dịch vụ",
           headerShown: false,
+          tabBarLabelStyle: {
+            fontSize: 12,
+          },
         }}
         redirect={!isSignedIn}
       />
@@ -78,11 +107,15 @@ const TabsPage = () => {
         name="profile"
         options={{
           headerTitle: "Cá nhân",
+          headerShown: false,
+          headerTitleAlign: "center",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person-outline" size={size} color={color} />
+            <Ionicons name="person" size={size} color={color} />
           ),
           tabBarLabel: "Cá nhân",
-          headerRight: () => <LogoutButton />,
+          tabBarLabelStyle: {
+            fontSize: 12,
+          },
         }}
         redirect={!isSignedIn}
       />
