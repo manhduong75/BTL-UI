@@ -16,18 +16,21 @@ const PublicLayout = () => {
         name="login"
         options={{
           headerTitle: "Di tích Điện Biên",
+          headerTitleAlign: "center",
         }}
       ></Stack.Screen>
       <Stack.Screen
         name="register"
         options={{
           headerTitle: "Tạo tài khoản",
+          headerTitleAlign: "center",
         }}
       ></Stack.Screen>
       <Stack.Screen
         name="reset"
         options={{
           headerTitle: "Cài đặt lại mật khẩu",
+          headerTitleAlign: "center",
         }}
       ></Stack.Screen>
     </Stack>
