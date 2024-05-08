@@ -6,14 +6,19 @@ import {
   Dimensions,
   FlatList,
   TextInput,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
 import { useUser } from "@clerk/clerk-expo";
-import { EvilIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 const Home = () => {
   const { user } = useUser();
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearch = () => {
+    console.log("Giá trị searchText:", searchText);
+  };
 
   const ditich = [
     require("../../assets/Heritage/Bao_tang_DBP.jpg"),
@@ -32,21 +37,25 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.search}>
-        <EvilIcons
-          name="search"
-          size={20}
-          color="black"
-          style={styles.searchIcon}
-        />
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Tìm kiếm..."
-          placeholderTextColor="gray"
-          onChangeText={(text) => setSearchQuery(text)}
-          value={searchQuery}
-        />
-      </View>
+      <View style={styles.searchContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Tìm kiếm..."
+              value={searchText}
+              onChangeText={setSearchText}
+            />
+            <TouchableOpacity
+              style={styles.searchButton}
+              onPress={handleSearch}
+            >
+              <Ionicons
+                name="search"
+                size={24}
+                color="black"
+                style={styles.searchIcon}
+              />
+            </TouchableOpacity>
+          </View>
       <View style={styles.row}>
         <Image
           source={require("../../assets/AnhDienBien.jpg")}
@@ -90,23 +99,28 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  search: {
+  searchContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginHorizontal: 35,
-    marginVertical: 10,
-    borderColor: "gray",
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: 20,
+    borderColor: "gray",
+    marginHorizontal: 30,
+    marginVertical: 20,
   },
-
-  searchIcon: {
-    marginHorizontal: 10,
-  },
-
-  searchInput: {
+  input: {
     flex: 1,
-    height: 35,
+    height: 40,
+    marginLeft: 10,
+  },
+  searchIcon: {
+    marginRight: 10,
+  },
+  searchButton: {
+    // backgroundColor: '#fff',
+    paddingVertical: 10,
+    // paddingHorizontal: 20,
+    borderRadius: 20,
   },
 
   row: {

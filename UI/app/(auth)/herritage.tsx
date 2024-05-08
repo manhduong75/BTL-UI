@@ -174,7 +174,7 @@ const Herritage = () => {
           <View style={styles.searchContainer}>
             <TextInput
               style={styles.input}
-              placeholder="Nhập từ khóa..."
+              placeholder="Tìm kiếm..."
               value={searchText}
               onChangeText={setSearchText}
             />

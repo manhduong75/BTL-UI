@@ -1,14 +1,15 @@
+import { Stack } from "expo-router";
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 
-const Service = () => {
+const Food = () => {
   return (
     <View>
-      <Text>dịch vụ</Text>
+      <Text>Food</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({});
 
-export default Service;
+export default Food;
