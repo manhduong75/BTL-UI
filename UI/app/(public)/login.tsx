@@ -20,7 +20,7 @@ import {
 import Spinner from "react-native-loading-spinner-overlay";
 import * as WebBrowser from "expo-web-browser";
 import { useWarmUpBrowser } from "../../hook/useWarmUpBrowser";
-import { create } from "tailwind-rn";
+import CustomButton from "../../component/customButton";
 WebBrowser.maybeCompleteAuthSession();
 
 enum Stragy {
@@ -29,6 +29,7 @@ enum Stragy {
 }
 
 const login = () => {
+  const [showPassword, setShowPassword] = useState(false);
   useWarmUpBrowser();
   const router = useRouter();
   const { startOAuthFlow: googleAuth } = useOAuth({ strategy: "oauth_google" });
@@ -73,7 +74,7 @@ const login = () => {
       // This indicates the user is signed in
       await setActive({ session: completeSignIn.createdSessionId });
     } catch (err: any) {
-      alert(err.errors[0].message);
+      Alert.alert(err.errors[0].message);
     } finally {
       setLoading(false);
     }
@@ -99,16 +100,22 @@ const login = () => {
           placeholder="Mật khẩu"
           value={password}
           onChangeText={setPassword}
-          secureTextEntry
+          secureTextEntry={!showPassword}
           style={styles.input}
         />
+        <TouchableOpacity
+          onPress={() => setShowPassword(!showPassword)}
+          style={styles.eyeIcon}
+        >
+          {showPassword ? (
+            <Ionicons name="eye" size={24} color="grey" />
+          ) : (
+            <Ionicons name="eye-off" size={24} color="grey" />
+          )}
+        </TouchableOpacity>
       </View>
       <View style={styles.buttonLogin}>
-        <Button
-          onPress={onSignInPress}
-          title="Đăng nhập"
-          color={"#2E82FF"}
-        ></Button>
+        <CustomButton onPress={onSignInPress} title="Đăng nhập" />
       </View>
 
       <View style={styles.link}>
@@ -185,10 +192,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginBottom: 4,
     fontSize: 16,
-    width: "100%",
+    width: "90%",
   },
   inputField: {
     flexDirection: "row",
+    alignItems: "center",
     marginVertical: 7,
     height: 50,
     borderWidth: 1,
@@ -233,5 +241,10 @@ const styles = StyleSheet.create({
   buttonLogin: {
     marginVertical: 8,
     borderRadius: 8,
+  },
+  eyeIcon: {
+    position: "absolute",
+    marginTop: 10,
+    right: 10,
   },
 });
