@@ -13,7 +13,7 @@ const Service = () => {
   return (
     <View style={styles.container}>
       <View>
-        <Link href="/service/ticket" asChild>
+        <Link href="/listServices/ticket" asChild>
           <TouchableOpacity
             style={{ ...styles.item, backgroundColor: "#33b055" }}
           >
@@ -24,7 +24,7 @@ const Service = () => {
       </View>
 
       <View>
-        <Link href="/service/food" asChild>
+        <Link href="/listServices/food" asChild>
           <TouchableOpacity
             style={{ ...styles.item, backgroundColor: "#a232e3" }}
           >
@@ -39,7 +39,7 @@ const Service = () => {
       </View>
 
       <View>
-        <Link href="/service/electricCar" asChild>
+        <Link href="/listServices/electricCar" asChild>
           <TouchableOpacity
             style={{ ...styles.item, backgroundColor: "#2297e0" }}
           >
@@ -50,7 +50,7 @@ const Service = () => {
       </View>
 
       <View>
-        <Link href="/service/tour" asChild>
+        <Link href="/listServices/tour" asChild>
           <TouchableOpacity
             style={{ ...styles.item, backgroundColor: "#e6ae2e" }}
           >
@@ -65,7 +65,7 @@ const Service = () => {
       </View>
 
       <View>
-        <Link href="/service/photo" asChild>
+        <Link href="/listServices/photo" asChild>
           <TouchableOpacity
             style={{ ...styles.item, backgroundColor: "#f0435a" }}
           >

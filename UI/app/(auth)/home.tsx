@@ -1,5 +1,6 @@
 import {
   View,
+  ScrollView,
   Text,
   StyleSheet,
   Image,
@@ -10,7 +11,14 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { useUser } from "@clerk/clerk-expo";
-import { Ionicons } from "@expo/vector-icons";
+import { Link } from "expo-router";
+import {
+  Ionicons,
+  Fontisto,
+  MaterialCommunityIcons,
+  MaterialIcons,
+  Entypo,
+} from "@expo/vector-icons";
 
 const Home = () => {
   const { user } = useUser();
@@ -38,57 +46,123 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
-            <TextInput
-              style={styles.input}
-              placeholder="Tìm kiếm..."
-              value={searchText}
-              onChangeText={setSearchText}
-            />
-            <TouchableOpacity
-              style={styles.searchButton}
-              onPress={handleSearch}
-            >
-              <Ionicons
-                name="search"
-                size={24}
-                color="black"
-                style={styles.searchIcon}
-              />
-            </TouchableOpacity>
+        <TextInput
+          style={styles.input}
+          placeholder="Tìm kiếm..."
+          value={searchText}
+          onChangeText={setSearchText}
+        />
+        <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
+          <Ionicons
+            name="search"
+            size={24}
+            color="black"
+            style={styles.searchIcon}
+          />
+        </TouchableOpacity>
+      </View>
+      <ScrollView>
+        <View style={styles.row}>
+          <Image
+            source={require("../../assets/AnhDienBien.jpg")}
+            style={styles.bigImage}
+          />
+        </View>
+        <Text style={styles.text}>Di tích</Text>
+
+        <View style={styles.row}>
+          <FlatList
+            data={ditich}
+            horizontal={true}
+            pagingEnabled={true}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <Image source={item} style={styles.smallImage} />
+            )}
+          />
+        </View>
+
+        <Text style={styles.text}>Danh lam thắng cảnh</Text>
+
+        <View style={styles.row}>
+          <FlatList
+            data={danhlam}
+            horizontal={true}
+            pagingEnabled={true}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <Image source={item} style={styles.smallImage} />
+            )}
+          />
+        </View>
+
+        <Text style={styles.text}>Dịch vụ</Text>
+        <View style={styles.row}>
+          <View style={styles.serviceItem}>
+            <Link href="/service/ticket" asChild>
+              <TouchableOpacity
+                style={{ ...styles.item, backgroundColor: "#33b055" }}
+              >
+                <Fontisto name="ticket" size={29} color="white" />
+              </TouchableOpacity>
+            </Link>
+            <Text style={styles.title}>ĐẶT VÉ</Text>
           </View>
-      <View style={styles.row}>
-        <Image
-          source={require("../../assets/AnhDienBien.jpg")}
-          style={styles.bigImage}
-        />
-      </View>
-      <Text style={styles.text}>Di tích</Text>
 
-      <View style={styles.row}>
-        <FlatList
-          data={ditich}
-          horizontal={true}
-          pagingEnabled={true}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <Image source={item} style={styles.smallImage} />
-          )}
-        />
-      </View>
+          <View style={styles.serviceItem}>
+            <Link href="/service/food" asChild>
+              <TouchableOpacity
+                style={{ ...styles.item, backgroundColor: "#a232e3" }}
+              >
+                <MaterialCommunityIcons
+                  name="food-turkey"
+                  size={29}
+                  color="white"
+                />
+              </TouchableOpacity>
+            </Link>
+            <Text style={styles.title}>ẨM THỰC</Text>
+          </View>
 
-      <Text style={styles.text}>Danh lam thắng cảnh</Text>
+          <View style={styles.serviceItem}>
+            <Link href="/service/electricCar" asChild>
+              <TouchableOpacity
+                style={{ ...styles.item, backgroundColor: "#2297e0" }}
+              >
+                <MaterialIcons name="electric-car" size={29} color="white" />
+              </TouchableOpacity>
+            </Link>
+            <Text style={styles.title}>ĐẶT XE ĐIỆN</Text>
+          </View>
+        </View>
+        <View style={styles.row}>
+          <View style={styles.serviceItem}>
+            <Link href="/service/tour" asChild>
+              <TouchableOpacity
+                style={{ ...styles.item, backgroundColor: "#e6ae2e" }}
+              >
+                <MaterialCommunityIcons
+                  name="transit-detour"
+                  size={29}
+                  color="white"
+                />
+              </TouchableOpacity>
+            </Link>
+            <Text style={styles.title}>TOUR</Text>
+          </View>
 
-      <View style={styles.row}>
-        <FlatList
-          data={danhlam}
-          horizontal={true}
-          pagingEnabled={true}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <Image source={item} style={styles.smallImage} />
-          )}
-        />
-      </View>
+          <View style={styles.serviceItem}>
+            <Link href="/service/photo" asChild>
+              <TouchableOpacity
+                style={{ ...styles.item, backgroundColor: "#f0435a" }}
+              >
+                <Entypo name="camera" size={29} color="white" />
+              </TouchableOpacity>
+            </Link>
+            <Text style={styles.title}>CHỤP ẢNH</Text>
+          </View>
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -125,7 +199,6 @@ const styles = StyleSheet.create({
 
   row: {
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "center",
   },
 
@@ -146,6 +219,27 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     margin: 15,
+  },
+  item: {
+    backgroundColor: "#2E82FF",
+    width: 70,
+    height: 70,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 50,
+    margin: 20,
+    shadowOpacity: 5,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 10 },
+    elevation: 5,
+  },
+  title: {
+    textAlign: "center",
+    color: "black",
+    fontWeight: "400",
+  },
+  serviceItem: {
+    paddingBottom: 40,
   },
 });
 
