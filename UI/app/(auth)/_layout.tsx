@@ -59,7 +59,7 @@ const TabsPage = () => {
         redirect={!isSignedIn}
       />
       <Tabs.Screen
-        name="festival"
+        name="event"
         options={{
           headerTitle: "Sự kiện",
           headerShown: false,
