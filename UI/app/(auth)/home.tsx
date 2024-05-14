@@ -19,6 +19,7 @@ import {
   MaterialIcons,
   Entypo,
 } from "@expo/vector-icons";
+import Service from "./service";
 
 const Home = () => {
   const { user } = useUser();
@@ -61,7 +62,8 @@ const Home = () => {
           />
         </TouchableOpacity>
       </View>
-      <ScrollView>
+      {/* Add paddingBottom to the ScrollView */}
+      <ScrollView style={{ paddingBottom: 50 }}>
         <View style={styles.row}>
           <Image
             source={require("../../assets/AnhDienBien.jpg")}
@@ -96,71 +98,9 @@ const Home = () => {
           />
         </View>
 
-        <Text style={styles.text}>Dịch vụ</Text>
-        <View style={styles.row}>
-          <View style={styles.serviceItem}>
-            <Link href="/service/ticket" asChild>
-              <TouchableOpacity
-                style={{ ...styles.item, backgroundColor: "#33b055" }}
-              >
-                <Fontisto name="ticket" size={29} color="white" />
-              </TouchableOpacity>
-            </Link>
-            <Text style={styles.title}>ĐẶT VÉ</Text>
-          </View>
-
-          <View style={styles.serviceItem}>
-            <Link href="/service/food" asChild>
-              <TouchableOpacity
-                style={{ ...styles.item, backgroundColor: "#a232e3" }}
-              >
-                <MaterialCommunityIcons
-                  name="food-turkey"
-                  size={29}
-                  color="white"
-                />
-              </TouchableOpacity>
-            </Link>
-            <Text style={styles.title}>ẨM THỰC</Text>
-          </View>
-
-          <View style={styles.serviceItem}>
-            <Link href="/service/electricCar" asChild>
-              <TouchableOpacity
-                style={{ ...styles.item, backgroundColor: "#2297e0" }}
-              >
-                <MaterialIcons name="electric-car" size={29} color="white" />
-              </TouchableOpacity>
-            </Link>
-            <Text style={styles.title}>ĐẶT XE ĐIỆN</Text>
-          </View>
-        </View>
-        <View style={styles.row}>
-          <View style={styles.serviceItem}>
-            <Link href="/service/tour" asChild>
-              <TouchableOpacity
-                style={{ ...styles.item, backgroundColor: "#e6ae2e" }}
-              >
-                <MaterialCommunityIcons
-                  name="transit-detour"
-                  size={29}
-                  color="white"
-                />
-              </TouchableOpacity>
-            </Link>
-            <Text style={styles.title}>TOUR</Text>
-          </View>
-
-          <View style={styles.serviceItem}>
-            <Link href="/service/photo" asChild>
-              <TouchableOpacity
-                style={{ ...styles.item, backgroundColor: "#f0435a" }}
-              >
-                <Entypo name="camera" size={29} color="white" />
-              </TouchableOpacity>
-            </Link>
-            <Text style={styles.title}>CHỤP ẢNH</Text>
-          </View>
+        <View style={styles.service}>
+          <Text style={{ fontSize: 20 }}>Dịch vụ</Text>
+          <Service />
         </View>
       </ScrollView>
     </View>
@@ -198,8 +138,15 @@ const styles = StyleSheet.create({
   },
 
   row: {
+    display: "flex",
     flexDirection: "row",
-    justifyContent: "center",
+    flexWrap: "wrap",
+    marginTop: 20,
+    marginRight: 20,
+  },
+  service: {
+    height: 400,
+    marginBottom: 20,
   },
 
   bigImage: {
@@ -218,7 +165,6 @@ const styles = StyleSheet.create({
 
   text: {
     fontSize: 20,
-    margin: 15,
   },
   item: {
     backgroundColor: "#2E82FF",
@@ -239,7 +185,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
   },
   serviceItem: {
-    paddingBottom: 40,
+    paddingBottom: 10,
   },
 });
 

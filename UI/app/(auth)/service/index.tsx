@@ -81,9 +81,10 @@ const Service = () => {
 const styles = StyleSheet.create({
   container: {
     display: "flex",
+    flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-    marginTop: 20,
+    marginTop: 10,
     marginHorizontal: 30,
   },
   item: {
