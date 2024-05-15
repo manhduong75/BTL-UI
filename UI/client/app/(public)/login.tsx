@@ -29,6 +29,8 @@ enum Stragy {
 }
 
 const login = () => {
+  const [isEmailFocused, setIsEmailFocused] = useState(false);
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   useWarmUpBrowser();
   const router = useRouter();
@@ -84,7 +86,9 @@ const login = () => {
     <View style={styles.container}>
       <Spinner visible={loading} />
 
-      <View style={styles.inputField}>
+      <View
+        style={isEmailFocused ? styles.focusedInputField : styles.inputField}
+      >
         <FontAwesome5 name="user" size={18} color="black" />
         <TextInput
           autoCapitalize="none"
@@ -92,9 +96,13 @@ const login = () => {
           value={emailAddress}
           onChangeText={setEmailAddress}
           style={styles.input}
+          onFocus={() => setIsEmailFocused(true)}
+          onBlur={() => setIsEmailFocused(false)}
         />
       </View>
-      <View style={styles.inputField}>
+      <View
+        style={isPasswordFocused ? styles.focusedInputField : styles.inputField}
+      >
         <FontAwesome5 name="key" size={18} color="black" />
         <TextInput
           placeholder="Mật khẩu"
@@ -102,6 +110,8 @@ const login = () => {
           onChangeText={setPassword}
           secureTextEntry={!showPassword}
           style={styles.input}
+          onFocus={() => setIsPasswordFocused(true)}
+          onBlur={() => setIsPasswordFocused(false)}
         />
         <TouchableOpacity
           onPress={() => setShowPassword(!showPassword)}
@@ -201,6 +211,17 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 1,
     borderColor: "grey",
+    borderRadius: 8,
+    padding: 10,
+    backgroundColor: "#fff",
+  },
+  focusedInputField: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 7,
+    height: 50,
+    borderWidth: 1,
+    borderColor: "#EB841C",
     borderRadius: 8,
     padding: 10,
     backgroundColor: "#fff",

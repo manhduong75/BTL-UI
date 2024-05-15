@@ -5,6 +5,9 @@ import { useSignIn } from "@clerk/clerk-expo";
 import CustomButton from "../../component/customButton";
 
 const PwReset = () => {
+  const [focusedInput, setFocusedInput] = useState(null);
+  const handleFocus = (inputId: any) => setFocusedInput(inputId);
+  const handleBlur = () => setFocusedInput(null);
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
@@ -53,7 +56,12 @@ const PwReset = () => {
             placeholder="Email của bạn"
             value={emailAddress}
             onChangeText={setEmailAddress}
-            style={styles.inputField}
+            style={[
+              styles.inputField,
+              focusedInput === "email" && { borderColor: "#EB841C" },
+            ]}
+            onFocus={() => handleFocus("email")}
+            onBlur={handleBlur}
           />
 
           <CustomButton
@@ -69,7 +77,12 @@ const PwReset = () => {
             <TextInput
               value={code}
               placeholder="Mã xác thực..."
-              style={styles.inputField}
+              style={[
+                styles.inputField,
+                focusedInput === "code" && { borderColor: "#EB841C" },
+              ]}
+              onFocus={() => handleFocus("code")}
+              onBlur={handleBlur}
               onChangeText={setCode}
             />
             <TextInput
@@ -77,7 +90,12 @@ const PwReset = () => {
               value={password}
               onChangeText={setPassword}
               secureTextEntry
-              style={styles.inputField}
+              style={[
+                styles.inputField,
+                focusedInput === "newPassword" && { borderColor: "#EB841C" },
+              ]}
+              onFocus={() => handleFocus("newPassword")}
+              onBlur={handleBlur}
             />
           </View>
           <Button

@@ -14,16 +14,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { useUser } from "@clerk/clerk-expo";
-import { Link } from "expo-router";
-import {
-  Ionicons,
-  Fontisto,
-  MaterialCommunityIcons,
-  MaterialIcons,
-  Entypo,
-} from "@expo/vector-icons";
 import Service from "./service";
-import WebView from "react-native-webview";
 import Map from "../../component/map";
 const getWidth = Dimensions.get("window").width;
 
@@ -59,10 +50,7 @@ const Home = () => {
     <ScrollView>
       <View style={styles.container}>
         <SafeAreaView
-          style={[
-            styles.map,
-            isExpanded ? styles.expandedMap : styles.collapsedMap,
-          ]}
+          style={[isExpanded ? styles.expandedMap : styles.collapsedMap]}
         >
           <TouchableOpacity
             onPress={toggleExpand}
@@ -75,6 +63,7 @@ const Home = () => {
               {isExpanded ? "THU GỌN BẢN ĐỒ" : "MỞ RỘNG BẢN ĐỒ"}
             </Text>
           </TouchableOpacity>
+          <Map />
         </SafeAreaView>
         <Text style={styles.text}>Di tích</Text>
 
@@ -82,6 +71,7 @@ const Home = () => {
           <FlatList
             data={ditich}
             horizontal={true}
+            showsHorizontalScrollIndicator={false}
             pagingEnabled={true}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
@@ -96,6 +86,7 @@ const Home = () => {
           <FlatList
             data={danhlam}
             horizontal={true}
+            showsHorizontalScrollIndicator={false}
             pagingEnabled={true}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
@@ -105,7 +96,7 @@ const Home = () => {
         </View>
 
         <View style={styles.service}>
-          <Text style={{ fontSize: 20 }}>Dịch vụ</Text>
+          <Text style={styles.text}>Dịch vụ</Text>
           <Service />
         </View>
       </View>
@@ -118,18 +109,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  map: {
-    width: "100%",
-  },
   collapsedMap: {
     height: 300,
   },
   expandedMap: {
-    height: Dimensions.get("window").height,
+    height: 700,
   },
   expandButtonText: {
-    color: "#0dc2d6",
+    color: "#10bfde",
     textAlign: "center",
+    fontWeight: "500",
   },
   expandButton: {
     position: "absolute",
@@ -149,7 +138,7 @@ const styles = StyleSheet.create({
   },
 
   expandButtonExpanded: {
-    bottom: 50,
+    bottom: 85,
   },
   searchContainer: {
     flexDirection: "row",
@@ -179,28 +168,26 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     marginTop: 20,
     marginRight: 20,
+    marginBottom: 20,
   },
   service: {
-    height: 400,
+    height: 450,
     marginBottom: 20,
   },
 
-  bigImage: {
-    margin: 10,
-    width: imageWidth,
-    height: imageWidth / aspectRatio,
-    borderRadius: 10,
-  },
-
   smallImage: {
-    width: 200,
+    width: 160,
     height: 100,
-    marginLeft: 30,
+    marginLeft: 20,
     borderRadius: 5,
   },
 
   text: {
-    fontSize: 20,
+    fontSize: 22,
+    color: "#EB841C",
+    marginLeft: 17,
+    marginTop: 30,
+    fontWeight: "bold",
   },
   item: {
     backgroundColor: "#2E82FF",

@@ -31,9 +31,10 @@ const TabsPage = () => {
     <Tabs
       screenOptions={{
         headerStyle: {
-          backgroundColor: "#2E82FF",
+          backgroundColor: "#FFC909",
         },
         headerTintColor: "#fff",
+        tabBarActiveTintColor: "#FFC909",
         tabBarStyle: {
           borderWidth: 0,
           borderRadius: 0,
@@ -77,6 +78,9 @@ const TabsPage = () => {
         name="home"
         options={{
           headerTitle: "Trang chủ",
+          headerTitleStyle: {
+            fontSize: 22,
+          },
           tabBarIcon: ({ color, size }) => (
             <Entypo name="home" size={size + 3} color={color} />
           ),
@@ -106,7 +110,7 @@ const TabsPage = () => {
       <Tabs.Screen
         name="profile"
         options={{
-          headerTitle: "Cá nhân",
+          headerTitle: "CÁ NHÂN",
           headerShown: false,
           headerTitleAlign: "center",
           tabBarIcon: ({ color, size }) => (
