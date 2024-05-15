@@ -1,17 +1,19 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import React from "react";
+import { View, Text, Image, StyleSheet } from "react-native";
+import { useLocalSearchParams } from "expo-router";
 
 const events = [
   {
     id: 1,
     title: "Lễ hội Hoa Ban",
-    image: "https://vnmedia.vn/file/8a10a0d36ccebc89016ce0c6fa3e1b83/8a10a0d36d961641016db9c9fa273c32/022022/1_20220214152059.jpg",
+    image:
+      "https://vnmedia.vn/file/8a10a0d36ccebc89016ce0c6fa3e1b83/8a10a0d36d961641016db9c9fa273c32/022022/1_20220214152059.jpg",
   },
   {
     id: 2,
     title: "Lễ hội Hoa Anh Đào",
-    image: "https://afamilycdn.com/150157425591193600/2023/12/10/3281055004221258734345941997230514713636857n-1-1702166075638480154269-1702178556587-17021785579251079420961.jpg",
+    image:
+      "https://afamilycdn.com/150157425591193600/2023/12/10/3281055004221258734345941997230514713636857n-1-1702166075638480154269-1702178556587-17021785579251079420961.jpg",
   },
   {
     id: 3,
@@ -36,7 +38,8 @@ const events = [
   {
     id: 7,
     title: "Hương sắc Điện Biên",
-    image: "https://imagev3.dantocmiennui.vn/w1000/Uploaddtmn/2017/3/17/85-1.JPG",
+    image:
+      "https://imagev3.dantocmiennui.vn/w1000/Uploaddtmn/2017/3/17/85-1.JPG",
   },
 ];
 
@@ -44,7 +47,7 @@ const EventDetailScreen = () => {
   const { id } = useLocalSearchParams();
 
   const eventId = Array.isArray(id) ? id[0] : id;
-  const event = events.find(e => e.id === parseInt(eventId, 10));
+  const event = events.find((e) => e.id === parseInt(eventId, 10));
 
   if (!event) {
     return (
@@ -65,18 +68,18 @@ const EventDetailScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 10,
   },
   image: {
-    width: '100%',
+    width: "100%",
     height: 300,
     marginBottom: 20,
   },
   title: {
     fontSize: 24,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
 

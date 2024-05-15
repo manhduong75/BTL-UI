@@ -1,6 +1,13 @@
-import React from 'react';
-import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
-import { useRouter } from 'expo-router';
+import React from "react";
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
+import { useRouter } from "expo-router";
 
 const events = [
   {
@@ -44,7 +51,10 @@ const Event = () => {
   const router = useRouter();
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.item} onPress={() => router.push(`/event/${item.id}`)}>
+    <TouchableOpacity
+      style={styles.item}
+      onPress={() => router.push(`/event/${item.id}`)}
+    >
       <Image source={{ uri: item.uri }} style={styles.image} />
       <Text style={styles.text}>{item.text}</Text>
     </TouchableOpacity>
@@ -55,7 +65,7 @@ const Event = () => {
       <FlatList
         data={events}
         renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={(item) => item.id.toString()}
       />
     </View>
   );
@@ -69,12 +79,12 @@ const styles = StyleSheet.create({
   item: {
     marginBottom: 20,
     borderRadius: 10,
-    overflow: 'hidden',
-    backgroundColor: '#fff',
+    overflow: "hidden",
+    backgroundColor: "#fff",
     elevation: 2,
   },
   image: {
-    width: '100%',
+    width: "100%",
     height: 200,
   },
   text: {

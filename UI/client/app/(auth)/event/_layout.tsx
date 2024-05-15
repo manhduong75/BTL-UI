@@ -25,7 +25,7 @@ const EventLayout = () => {
           headerTitle: "Chi tiết Sự kiện",
           headerTitleAlign: "center",
         }}
-        ></Stack.Screen>
+      ></Stack.Screen>
     </Stack>
   );
 };
