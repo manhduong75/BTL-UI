@@ -6,7 +6,7 @@ const ServiceLayout = () => {
     <Stack
       screenOptions={{
         headerStyle: {
-          backgroundColor: "#2E82FF",
+          backgroundColor: "#FFC909",
         },
         headerTintColor: "#fff",
         headerBackTitle: "Back",
@@ -17,6 +17,7 @@ const ServiceLayout = () => {
         options={{
           headerTitle: "Dịch vụ",
           headerTitleAlign: "center",
+          headerTitleStyle: { fontSize: 22 },
         }}
       ></Stack.Screen>
     </Stack>

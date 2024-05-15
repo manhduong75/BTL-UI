@@ -6,8 +6,9 @@ const PublicLayout = () => {
     <Stack
       screenOptions={{
         headerStyle: {
-          backgroundColor: "#2E82FF",
+          backgroundColor: "#FFC909",
         },
+        headerTitleStyle: { fontSize: 22 },
         headerTintColor: "#fff",
         headerBackTitle: "Back",
       }}

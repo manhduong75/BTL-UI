@@ -4,16 +4,18 @@ import MapView, {
   Marker,
   PROVIDER_GOOGLE,
   Region,
+  MapStyleElement,
 } from "react-native-maps";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "expo-router";
 import { markers } from "../assets/markers";
+import { Entypo } from "@expo/vector-icons";
 
 const INITIAL_REGION = {
-  latitude: 37.33,
-  longitude: -122,
-  latitudeDelta: 2,
-  longitudeDelta: 2,
+  latitude: 21.3852,
+  longitude: 103.0203,
+  latitudeDelta: 0.04,
+  longitudeDelta: 0.04,
 };
 
 export default function Map() {
@@ -23,29 +25,22 @@ export default function Map() {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity onPress={focusMap}>
-          <View style={{ padding: 10 }}>
-            <Text>Focus</Text>
-          </View>
+        <TouchableOpacity onPress={focusMap} style={{ marginRight: 10 }}>
+          <Entypo name="location-pin" size={28} color="white" />
         </TouchableOpacity>
       ),
     });
   }, []);
 
   const focusMap = () => {
-    const GreenBayStadium = {
-      latitude: 44.5013,
-      longitude: -88.0622,
-      latitudeDelta: 0.1,
-      longitudeDelta: 0.1,
+    const focusLocation = {
+      latitude: 21.380564296389437,
+      longitude: 103.015875699283,
+      latitudeDelta: 0.04,
+      longitudeDelta: 0.04,
     };
 
-    mapRef.current?.animateToRegion(GreenBayStadium);
-    // mapRef.current?.animateCamera({ center: GreenBayStadium, zoom: 10 }, { duration: 2000 });
-  };
-
-  const onMarkerSelected = (marker: any) => {
-    Alert.alert(marker.name);
+    mapRef.current?.animateToRegion(focusLocation);
   };
 
   const calloutPressed = (ev: any) => {
@@ -68,15 +63,26 @@ export default function Map() {
         onRegionChangeComplete={onRegionChange}
       >
         {markers.map((marker, index) => (
-          <Marker
-            key={index}
-            title={marker.name}
-            coordinate={marker}
-            onPress={() => onMarkerSelected(marker)}
-          >
+          <Marker key={index} title={marker.name} coordinate={marker}>
             <Callout onPress={calloutPressed}>
-              <View style={{ padding: 10 }}>
-                <Text style={{ fontSize: 24 }}>Hello</Text>
+              <View
+                style={{
+                  padding: 10,
+                  display: "flex",
+                  minWidth: 50,
+                  maxWidth: 200,
+                }}
+              >
+                <Text
+                  style={{
+                    flex: 1,
+                    fontSize: 16,
+                    flexWrap: "wrap",
+                    textAlign: "center",
+                  }}
+                >
+                  {marker.name}
+                </Text>
               </View>
             </Callout>
           </Marker>

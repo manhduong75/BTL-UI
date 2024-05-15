@@ -13,8 +13,10 @@ import Spinner from "react-native-loading-spinner-overlay";
 import { Ionicons } from "@expo/vector-icons";
 import CustomButton from "../../component/customButton";
 const Register = () => {
+  const [focusedInput, setFocusedInput] = useState(null);
+  const handleFocus = (inputId: any) => setFocusedInput(inputId);
+  const handleBlur = () => setFocusedInput(null);
   const { isLoaded, signUp, setActive } = useSignUp();
-
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -67,7 +69,12 @@ const Register = () => {
             placeholder="Email"
             value={emailAddress}
             onChangeText={setEmailAddress}
-            style={styles.inputField}
+            style={[
+              styles.inputField,
+              focusedInput === "email" && { borderColor: "#EB841C" },
+            ]}
+            onFocus={() => handleFocus("email")}
+            onBlur={handleBlur}
           />
           <View style={styles.passwordContainer}>
             <TextInput
@@ -75,7 +82,13 @@ const Register = () => {
               value={password}
               onChangeText={setPassword}
               secureTextEntry={!showPassword}
-              style={[styles.inputField, { flex: 1 }]}
+              style={[
+                styles.inputField,
+                { flex: 1 },
+                focusedInput === "password" && { borderColor: "#EB841C" },
+              ]}
+              onFocus={() => handleFocus("password")}
+              onBlur={handleBlur}
             />
             <TouchableOpacity
               onPress={() => setShowPassword(!showPassword)}
@@ -94,7 +107,13 @@ const Register = () => {
               value={confirmPassword}
               onChangeText={setConfirmPassword}
               secureTextEntry={!showPassword}
-              style={[styles.inputField, { flex: 1 }]}
+              style={[
+                styles.inputField,
+                { flex: 1 },
+                focusedInput === "repeatPassword" && { borderColor: "#EB841C" },
+              ]}
+              onFocus={() => handleFocus("repeatPassword")}
+              onBlur={handleBlur}
             />
             <TouchableOpacity
               onPress={() => setShowPassword(!showPassword)}

@@ -8,16 +8,18 @@ import {
   Entypo,
 } from "@expo/vector-icons";
 import { Text } from "react-native";
-import { WebView } from 'react-native-webview';
+import { WebView } from "react-native-webview";
 
 const Service = () => {
   return (
     <View style={styles.container}>
-          <SafeAreaView>
-          <WebView
-            source={{ uri: 'https://www.google.com/maps/@20.2843517,105.9064479,16.5z?hl=vi-VN&entry=ttu' }}
-          />
-        </SafeAreaView>
+      <SafeAreaView>
+        <WebView
+          source={{
+            uri: "https://www.google.com/maps/@20.2843517,105.9064479,16.5z?hl=vi-VN&entry=ttu",
+          }}
+        />
+      </SafeAreaView>
       <View>
         <Link href="/listServices/ticket" asChild>
           <TouchableOpacity
@@ -26,7 +28,7 @@ const Service = () => {
             <Fontisto name="ticket" size={29} color="white" />
           </TouchableOpacity>
         </Link>
-        <Text style={styles.title}>ĐẶT VÉ</Text>
+        <Text style={styles.title}>Đặt vé</Text>
       </View>
 
       <View>
@@ -41,7 +43,7 @@ const Service = () => {
             />
           </TouchableOpacity>
         </Link>
-        <Text style={styles.title}>ẨM THỰC</Text>
+        <Text style={styles.title}>Ẩm thực</Text>
       </View>
 
       <View>
@@ -52,7 +54,7 @@ const Service = () => {
             <MaterialIcons name="electric-car" size={29} color="white" />
           </TouchableOpacity>
         </Link>
-        <Text style={styles.title}>ĐẶT XE ĐIỆN</Text>
+        <Text style={styles.title}>Đặt xe điện</Text>
       </View>
 
       <View>
@@ -67,7 +69,7 @@ const Service = () => {
             />
           </TouchableOpacity>
         </Link>
-        <Text style={styles.title}>TOUR</Text>
+        <Text style={styles.title}>Tour</Text>
       </View>
 
       <View>
@@ -78,7 +80,7 @@ const Service = () => {
             <Entypo name="camera" size={29} color="white" />
           </TouchableOpacity>
         </Link>
-        <Text style={styles.title}>CHỤP ẢNH</Text>
+        <Text style={styles.title}>Chụp ánh</Text>
       </View>
     </View>
   );
@@ -110,8 +112,8 @@ const styles = StyleSheet.create({
   title: {
     textAlign: "center",
     color: "black",
-    fontWeight: "400",
     marginBottom: 30,
+    fontSize: 16,
   },
 });
 

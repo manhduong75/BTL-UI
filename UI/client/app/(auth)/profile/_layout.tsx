@@ -8,7 +8,7 @@ const _layout = () => {
     <Stack
       screenOptions={{
         headerStyle: {
-          backgroundColor: "#2E82FF",
+          backgroundColor: "#FFC909",
         },
         headerTintColor: "#fff",
         headerBackTitle: "Back",
@@ -18,6 +18,7 @@ const _layout = () => {
         name="index"
         options={{
           headerTitle: "Cá nhân",
+          headerTitleStyle: { fontSize: 22 },
           headerTitleAlign: "center",
           headerRight: () => <LogoutButton />,
         }}
