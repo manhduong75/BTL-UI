@@ -77,7 +77,6 @@ const TabsPage = () => {
         name="home"
         options={{
           headerTitle: "Trang chủ",
-          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Entypo name="home" size={size + 3} color={color} />
           ),
@@ -85,6 +84,7 @@ const TabsPage = () => {
           tabBarLabelStyle: {
             fontSize: 12,
           },
+          headerTitleAlign: "center",
         }}
         redirect={!isSignedIn}
       />

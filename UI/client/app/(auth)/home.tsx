@@ -8,6 +8,9 @@ import {
   FlatList,
   TextInput,
   TouchableOpacity,
+  SafeAreaView,
+  Pressable,
+  Button,
 } from "react-native";
 import React, { useState } from "react";
 import { useUser } from "@clerk/clerk-expo";
@@ -20,6 +23,9 @@ import {
   Entypo,
 } from "@expo/vector-icons";
 import Service from "./service";
+import WebView from "react-native-webview";
+import Map from "../../component/map";
+const getWidth = Dimensions.get("window").width;
 
 const Home = () => {
   const { user } = useUser();
@@ -43,33 +49,33 @@ const Home = () => {
     require("../../assets/Heritage/Ho_Pa_Khoang.jpg"),
     require("../../assets/Heritage/Cuc_Tay_A_Pa_Chai.jpg"),
   ];
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Tìm kiếm..."
-          value={searchText}
-          onChangeText={setSearchText}
-        />
-        <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-          <Ionicons
-            name="search"
-            size={24}
-            color="black"
-            style={styles.searchIcon}
-          />
-        </TouchableOpacity>
-      </View>
-      {/* Add paddingBottom to the ScrollView */}
-      <ScrollView style={{ paddingBottom: 50 }}>
-        <View style={styles.row}>
-          <Image
-            source={require("../../assets/AnhDienBien.jpg")}
-            style={styles.bigImage}
-          />
-        </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <SafeAreaView
+          style={[
+            styles.map,
+            isExpanded ? styles.expandedMap : styles.collapsedMap,
+          ]}
+        >
+          <TouchableOpacity
+            onPress={toggleExpand}
+            style={[
+              styles.expandButton,
+              isExpanded ? styles.expandButtonExpanded : {},
+            ]}
+          >
+            <Text style={styles.expandButtonText}>
+              {isExpanded ? "THU GỌN BẢN ĐỒ" : "MỞ RỘNG BẢN ĐỒ"}
+            </Text>
+          </TouchableOpacity>
+        </SafeAreaView>
         <Text style={styles.text}>Di tích</Text>
 
         <View style={styles.row}>
@@ -102,8 +108,8 @@ const Home = () => {
           <Text style={{ fontSize: 20 }}>Dịch vụ</Text>
           <Service />
         </View>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 const imageWidth = Dimensions.get("window").width * 0.8; // Chiều rộng của ảnh là 80% chiều rộng màn hình
@@ -112,7 +118,39 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  map: {
+    width: "100%",
+  },
+  collapsedMap: {
+    height: 300,
+  },
+  expandedMap: {
+    height: Dimensions.get("window").height,
+  },
+  expandButtonText: {
+    color: "#0dc2d6",
+    textAlign: "center",
+  },
+  expandButton: {
+    position: "absolute",
+    bottom: -25,
+    right: getWidth / 2 - 75,
+    backgroundColor: "#fff",
+    padding: 10,
+    borderRadius: 30,
+    zIndex: 10,
+    width: 150,
+    borderWidth: 1,
+    borderColor: "#0dc2d6",
+    shadowColor: "#0dc2d6",
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 5,
+  },
 
+  expandButtonExpanded: {
+    bottom: 50,
+  },
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -131,9 +169,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   searchButton: {
-    // backgroundColor: '#fff',
     paddingVertical: 10,
-    // paddingHorizontal: 20,
     borderRadius: 20,
   },
 
