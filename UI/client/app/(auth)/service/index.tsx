@@ -1,6 +1,6 @@
 import { Link } from "expo-router";
 import React from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { SafeAreaView, StyleSheet, TouchableOpacity, View } from "react-native";
 import {
   Fontisto,
   MaterialCommunityIcons,
@@ -8,10 +8,16 @@ import {
   Entypo,
 } from "@expo/vector-icons";
 import { Text } from "react-native";
+import { WebView } from 'react-native-webview';
 
 const Service = () => {
   return (
     <View style={styles.container}>
+          <SafeAreaView>
+          <WebView
+            source={{ uri: 'https://www.google.com/maps/@20.2843517,105.9064479,16.5z?hl=vi-VN&entry=ttu' }}
+          />
+        </SafeAreaView>
       <View>
         <Link href="/listServices/ticket" asChild>
           <TouchableOpacity
@@ -81,9 +87,10 @@ const Service = () => {
 const styles = StyleSheet.create({
   container: {
     display: "flex",
+    flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-    marginTop: 20,
+    marginTop: 10,
     marginHorizontal: 30,
   },
   item: {

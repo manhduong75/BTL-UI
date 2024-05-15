@@ -8,6 +8,9 @@ import {
   FlatList,
   TextInput,
   TouchableOpacity,
+  SafeAreaView,
+  Pressable,
+  Button,
 } from "react-native";
 import React, { useState } from "react";
 import { useUser } from "@clerk/clerk-expo";
@@ -19,6 +22,10 @@ import {
   MaterialIcons,
   Entypo,
 } from "@expo/vector-icons";
+import Service from "./service";
+import WebView from "react-native-webview";
+import Map from "../../component/map";
+const getWidth = Dimensions.get("window").width;
 
 const Home = () => {
   const { user } = useUser();
@@ -42,32 +49,33 @@ const Home = () => {
     require("../../assets/Heritage/Ho_Pa_Khoang.jpg"),
     require("../../assets/Heritage/Cuc_Tay_A_Pa_Chai.jpg"),
   ];
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Tìm kiếm..."
-          value={searchText}
-          onChangeText={setSearchText}
-        />
-        <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-          <Ionicons
-            name="search"
-            size={24}
-            color="black"
-            style={styles.searchIcon}
-          />
-        </TouchableOpacity>
-      </View>
-      <ScrollView>
-        <View style={styles.row}>
-          <Image
-            source={require("../../assets/AnhDienBien.jpg")}
-            style={styles.bigImage}
-          />
-        </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <SafeAreaView
+          style={[
+            styles.map,
+            isExpanded ? styles.expandedMap : styles.collapsedMap,
+          ]}
+        >
+          <TouchableOpacity
+            onPress={toggleExpand}
+            style={[
+              styles.expandButton,
+              isExpanded ? styles.expandButtonExpanded : {},
+            ]}
+          >
+            <Text style={styles.expandButtonText}>
+              {isExpanded ? "THU GỌN BẢN ĐỒ" : "MỞ RỘNG BẢN ĐỒ"}
+            </Text>
+          </TouchableOpacity>
+        </SafeAreaView>
         <Text style={styles.text}>Di tích</Text>
 
         <View style={styles.row}>
@@ -96,74 +104,12 @@ const Home = () => {
           />
         </View>
 
-        <Text style={styles.text}>Dịch vụ</Text>
-        <View style={styles.row}>
-          <View style={styles.serviceItem}>
-            <Link href="/service/ticket" asChild>
-              <TouchableOpacity
-                style={{ ...styles.item, backgroundColor: "#33b055" }}
-              >
-                <Fontisto name="ticket" size={29} color="white" />
-              </TouchableOpacity>
-            </Link>
-            <Text style={styles.title}>ĐẶT VÉ</Text>
-          </View>
-
-          <View style={styles.serviceItem}>
-            <Link href="/service/food" asChild>
-              <TouchableOpacity
-                style={{ ...styles.item, backgroundColor: "#a232e3" }}
-              >
-                <MaterialCommunityIcons
-                  name="food-turkey"
-                  size={29}
-                  color="white"
-                />
-              </TouchableOpacity>
-            </Link>
-            <Text style={styles.title}>ẨM THỰC</Text>
-          </View>
-
-          <View style={styles.serviceItem}>
-            <Link href="/service/electricCar" asChild>
-              <TouchableOpacity
-                style={{ ...styles.item, backgroundColor: "#2297e0" }}
-              >
-                <MaterialIcons name="electric-car" size={29} color="white" />
-              </TouchableOpacity>
-            </Link>
-            <Text style={styles.title}>ĐẶT XE ĐIỆN</Text>
-          </View>
+        <View style={styles.service}>
+          <Text style={{ fontSize: 20 }}>Dịch vụ</Text>
+          <Service />
         </View>
-        <View style={styles.row}>
-          <View style={styles.serviceItem}>
-            <Link href="/service/tour" asChild>
-              <TouchableOpacity
-                style={{ ...styles.item, backgroundColor: "#e6ae2e" }}
-              >
-                <MaterialCommunityIcons
-                  name="transit-detour"
-                  size={29}
-                  color="white"
-                />
-              </TouchableOpacity>
-            </Link>
-            <Text style={styles.title}>TOUR</Text>
-          </View>
-
-          <View style={styles.serviceItem}>
-            <Link href="/service/photo" asChild>
-              <TouchableOpacity
-                style={{ ...styles.item, backgroundColor: "#f0435a" }}
-              >
-                <Entypo name="camera" size={29} color="white" />
-              </TouchableOpacity>
-            </Link>
-            <Text style={styles.title}>CHỤP ẢNH</Text>
-          </View>
-        </View>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 const imageWidth = Dimensions.get("window").width * 0.8; // Chiều rộng của ảnh là 80% chiều rộng màn hình
@@ -172,7 +118,39 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  map: {
+    width: "100%",
+  },
+  collapsedMap: {
+    height: 300,
+  },
+  expandedMap: {
+    height: Dimensions.get("window").height,
+  },
+  expandButtonText: {
+    color: "#0dc2d6",
+    textAlign: "center",
+  },
+  expandButton: {
+    position: "absolute",
+    bottom: -25,
+    right: getWidth / 2 - 75,
+    backgroundColor: "#fff",
+    padding: 10,
+    borderRadius: 30,
+    zIndex: 10,
+    width: 150,
+    borderWidth: 1,
+    borderColor: "#0dc2d6",
+    shadowColor: "#0dc2d6",
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 5,
+  },
 
+  expandButtonExpanded: {
+    bottom: 50,
+  },
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -191,15 +169,20 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   searchButton: {
-    // backgroundColor: '#fff',
     paddingVertical: 10,
-    // paddingHorizontal: 20,
     borderRadius: 20,
   },
 
   row: {
+    display: "flex",
     flexDirection: "row",
-    justifyContent: "center",
+    flexWrap: "wrap",
+    marginTop: 20,
+    marginRight: 20,
+  },
+  service: {
+    height: 400,
+    marginBottom: 20,
   },
 
   bigImage: {
@@ -218,7 +201,6 @@ const styles = StyleSheet.create({
 
   text: {
     fontSize: 20,
-    margin: 15,
   },
   item: {
     backgroundColor: "#2E82FF",
@@ -239,7 +221,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
   },
   serviceItem: {
-    paddingBottom: 40,
+    paddingBottom: 10,
   },
 });
 
