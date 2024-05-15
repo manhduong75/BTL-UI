@@ -5,7 +5,7 @@ import MapView, {
   PROVIDER_GOOGLE,
   Region,
   MapStyleElement,
-} from "react-native-maps";
+} from "react-native-map";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "expo-router";
 import { markers } from "../assets/markers";
