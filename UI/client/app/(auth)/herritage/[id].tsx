@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 
 const herritages = [
@@ -45,7 +45,7 @@ const herritages = [
     },
     {
       id: 9,
-      uri: require("../../../assets/Heritage/Den_Tho_Liet_Si_A1.jpg"),
+      uri: require("../../../assets/Heritage/Thanh_ban_phu.jpg"),
       text: "Thành Bản Phủ (đền thờ Hoàng Công Chất)",
     },
   ];
@@ -66,8 +66,15 @@ const HerritageDetailScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{herritage.text}</Text>
+      <ScrollView>
       <Image source={herritage.uri } style={styles.image} />
+      <View style={styles.info}>
+        <Text style={styles.head}> {herritage.text} </Text>
+        <Text style={styles.body}>
+        {herritage.text}
+        </Text>
+      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -81,12 +88,25 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 300,
+    height: 250,
     marginBottom: 20,
   },
   title: {
     fontSize: 24,
     textAlign: "center",
+  },
+  info: {},
+  head: {
+    fontSize: 22,
+    fontWeight: "500",
+    textAlign: "center",
+    margin: 20,
+    color: "#3e8ded",
+  },
+  body: {
+    fontSize: 17,
+    lineHeight: 30,
+    marginHorizontal: 20,
   },
 });
 
