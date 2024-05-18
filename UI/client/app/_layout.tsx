@@ -69,6 +69,24 @@ const InitialLayout = () => {
         }}
       />
       <Stack.Screen
+        name="herritageDetail"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="eventDetail"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ScenicSpotDetail"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="personal"
         options={{
           headerShown: false,
