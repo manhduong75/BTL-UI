@@ -11,7 +11,13 @@ import {
 import React, { useEffect, useState } from "react";
 import { useAuth, useUser } from "@clerk/clerk-expo";
 import { defaultStyles } from "../../../constants/Styles";
-import { Ionicons } from "@expo/vector-icons";
+import {
+  Ionicons,
+  Fontisto,
+  EvilIcons,
+  FontAwesome6,
+  Entypo,
+} from "@expo/vector-icons";
 import Colors from "../../../constants/Colors";
 import { Link } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
@@ -119,9 +125,38 @@ const Profile = () => {
       )}
 
       {isSignedIn && (
-        <View style={styles.logOut}>
-          <TouchableOpacity onPress={() => signOut()}>
-            <Text style={{ color: "#fff" }}>Đăng xuất</Text>
+        <View style={styles.card}>
+          <Text style={styles.header}>Cài đặt</Text>
+          <Link href={"/personal/changePassword"} asChild>
+            <TouchableOpacity style={styles.option}>
+              <View style={styles.icon}>
+                <Fontisto name="locked" size={24} color="#EB841C" />
+              </View>
+              <View style={styles.title}>
+                <Text>Đổi mật khẩu</Text>
+                <EvilIcons name="chevron-right" size={30} color="grey" />
+              </View>
+            </TouchableOpacity>
+          </Link>
+          <Link href={"/personal/deleteAccount"} asChild>
+            <TouchableOpacity style={styles.option}>
+              <View style={styles.icon}>
+                <FontAwesome6 name="delete-left" size={22} color="#EB841C" />
+              </View>
+              <View style={styles.title}>
+                <Text>Xóa tài khoản</Text>
+                <EvilIcons name="chevron-right" size={30} color="grey" />
+              </View>
+            </TouchableOpacity>
+          </Link>
+          <TouchableOpacity style={styles.option} onPress={() => signOut()}>
+            <View style={styles.icon}>
+              <Entypo name="log-out" size={24} color="#EB841C" />
+            </View>
+            <View style={styles.title}>
+              <Text>Đăng xuất</Text>
+              <EvilIcons name="chevron-right" size={30} color="grey" />
+            </View>
           </TouchableOpacity>
         </View>
       )}
@@ -136,15 +171,15 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   header: {
-    fontSize: 24,
+    fontSize: 22,
   },
   card: {
     backgroundColor: "#fff",
     padding: 24,
     borderRadius: 16,
     marginHorizontal: 24,
-    marginTop: 24,
-    elevation: 2,
+    marginTop: 20,
+    elevation: 3,
     shadowColor: "#000",
     shadowOpacity: 0.2,
     shadowRadius: 6,
@@ -153,12 +188,12 @@ const styles = StyleSheet.create({
       height: 2,
     },
     alignItems: "center",
-    gap: 14,
-    marginBottom: 24,
+    gap: 10,
+    marginBottom: 15,
   },
   avatar: {
-    width: 100,
-    height: 100,
+    width: 90,
+    height: 90,
     borderRadius: 50,
     backgroundColor: Colors.grey,
   },
@@ -178,6 +213,35 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#2E82FF",
     alignSelf: "center",
+  },
+  frame: {
+    elevation: 2,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    shadowOffset: {
+      width: 1,
+      height: 2,
+    },
+  },
+  option: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    height: 50,
+    backgroundColor: "#fff",
+  },
+  icon: { width: 30, alignItems: "center" },
+  title: {
+    flexDirection: "row",
+    flex: 1,
+    height: 50,
+    justifyContent: "space-between",
+    alignItems: "center",
+    fontSize: 16,
+    marginLeft: 12,
+    borderBottomColor: "#dedfe0",
+    borderBottomWidth: 1,
   },
 });
 

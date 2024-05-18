@@ -12,40 +12,56 @@ import {
   Pressable,
   Button,
 } from "react-native";
-import React, { useState } from "react";
-import { useUser } from "@clerk/clerk-expo";
+import React, { useEffect, useState } from "react";
+import { useAuth, useUser } from "@clerk/clerk-expo";
 import Service from "./service";
 import Map from "../../component/map";
+import heritage from "../data/HerirtageData";
+import { Link } from "expo-router";
+import scenicSpots from "../data/ScenicSpots";
+import instance from "../../utils/axios";
 const getWidth = Dimensions.get("window").width;
 
 const Home = () => {
+  const userId = useAuth();
   const { user } = useUser();
   const [searchText, setSearchText] = useState("");
 
   const handleSearch = () => {
     console.log("Giá trị searchText:", searchText);
   };
-
-  const ditich = [
-    require("../../assets/Heritage/Bao_tang_DBP.jpg"),
-    require("../../assets/Heritage/doi_A1.jpg"),
-    require("../../assets/Heritage/Ham_De_Carter.jpg"),
-    require("../../assets/Heritage/Tuong_dai_chien_thang.jpg"),
-    require("../../assets/Heritage/Den_Tho_Liet_Si_A1.jpg"),
-  ];
-
-  const danhlam = [
-    require("../../assets/Heritage/Canh_dong_Muong_Thanh.jpg"),
-    require("../../assets/Heritage/Deo_Pha_Din.jpg"),
-    require("../../assets/Heritage/Ho_Pa_Khoang.jpg"),
-    require("../../assets/Heritage/Cuc_Tay_A_Pa_Chai.jpg"),
-  ];
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
+  const renderItem = ({ item }) => (
+    <View>
+      <Image source={item.image} style={styles.smallImage} />
+      <Text style={styles.title}>{item.name}</Text>
+    </View>
+  );
+  useEffect(() => {
+    const createUser = async () => {
+      try {
+        const response = await instance.post("/createUser", {
+          id: user.id,
+          name: user.fullName,
+        });
+        console.log(response.data);
+      } catch (error) {
+        if (error.response && error.response.status === 409) {
+          console.log(error.response.data.message);
+        } else {
+          console.error("An error occurred", error.message);
+        }
+      }
+    };
 
+    if (user.id && user.fullName) {
+      createUser();
+    }
+  }, [user.id, user.fullName]);
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -69,14 +85,13 @@ const Home = () => {
 
         <View style={styles.row}>
           <FlatList
-            data={ditich}
+            style={styles.listLocation}
+            data={heritage}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             pagingEnabled={true}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <Image source={item} style={styles.smallImage} />
-            )}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id.toString()}
           />
         </View>
 
@@ -84,14 +99,13 @@ const Home = () => {
 
         <View style={styles.row}>
           <FlatList
-            data={danhlam}
+            style={styles.listLocation}
+            data={scenicSpots}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             pagingEnabled={true}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <Image source={item} style={styles.smallImage} />
-            )}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id.toString()}
           />
         </View>
 
@@ -174,6 +188,9 @@ const styles = StyleSheet.create({
     height: 450,
     marginBottom: 20,
   },
+  listLocation: {
+    flex: 1,
+  },
 
   smallImage: {
     width: 160,
@@ -203,9 +220,12 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   title: {
+    width: 160,
     textAlign: "center",
     color: "black",
     fontWeight: "400",
+    fontSize: 14,
+    marginLeft: 20,
   },
   serviceItem: {
     paddingBottom: 10,
