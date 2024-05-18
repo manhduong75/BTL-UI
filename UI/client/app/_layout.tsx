@@ -62,6 +62,18 @@ const InitialLayout = () => {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="comments"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="personal"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 };

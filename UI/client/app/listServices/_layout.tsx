@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import React from "react";
 import { Stack } from "expo-router";
 
-const _layout = () => {
+const _listServiceLayout = () => {
   return (
     <Stack
       screenOptions={{
@@ -14,7 +14,7 @@ const _layout = () => {
       }}
     >
       <Stack.Screen
-        name="food"
+        name="listFood"
         options={{
           headerTitle: "Ẩm thực",
           headerTitleAlign: "center",
@@ -52,4 +52,4 @@ const _layout = () => {
   );
 };
 
-export default _layout;
+export default _listServiceLayout;

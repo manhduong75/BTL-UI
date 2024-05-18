@@ -24,7 +24,7 @@ const Service = () => {
       </View>
 
       <View>
-        <Link href="/listServices/food" asChild>
+        <Link href="/listServices/listFood/food" asChild>
           <TouchableOpacity
             style={{ ...styles.item, backgroundColor: "#a232e3" }}
           >
