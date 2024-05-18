@@ -17,7 +17,7 @@ import { useAuth, useUser } from "@clerk/clerk-expo";
 import Service from "./service";
 import Map from "../../component/map";
 import heritage from "../data/HerirtageData";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import scenicSpots from "../data/ScenicSpots";
 import instance from "../../utils/axios";
 const getWidth = Dimensions.get("window").width;
@@ -36,10 +36,28 @@ const Home = () => {
     setIsExpanded(!isExpanded);
   };
   const renderItem = ({ item }) => (
-    <View>
+    <Link
+        href={{
+          pathname: "/ScenicSpotDetail/[id]",
+          params: { id: item.id }
+        }}>
+    <View style={styles.imageContainer}>
       <Image source={item.image} style={styles.smallImage} />
-      <Text style={styles.title}>{item.name}</Text>
+      <Text style={styles.title}> {item.name}</Text>
     </View>
+    </Link>
+  );
+  const renderImageItem = ({ item }) => (
+    <Link
+        href={{
+          pathname: "/herritageDetail/[id]",
+          params: { id: item.id }
+        }}>
+    <View style={styles.imageContainer}>
+      <Image source={item.image} style={styles.smallImage} />
+      <Text style={styles.title}> {item.title}</Text>
+      </View>
+    </Link>
   );
   useEffect(() => {
     const createUser = async () => {
@@ -90,7 +108,7 @@ const Home = () => {
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             pagingEnabled={true}
-            renderItem={renderItem}
+            renderItem={renderImageItem}
             keyExtractor={(item) => item.id.toString()}
           />
         </View>
@@ -133,6 +151,11 @@ const styles = StyleSheet.create({
     color: "#10bfde",
     textAlign: "center",
     fontWeight: "500",
+  },
+  imageContainer: {
+    flex: 1,
+    margin: 5,
+    alignItems: "center",
   },
   expandButton: {
     position: "absolute",

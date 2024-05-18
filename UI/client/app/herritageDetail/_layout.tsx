@@ -1,7 +1,7 @@
 import React from "react";
 import { Stack } from "expo-router";
 
-const HerritageLayout = () => {
+const HerritageDetailsLayout = () => {
   return (
     <Stack
       screenOptions={{
@@ -13,14 +13,6 @@ const HerritageLayout = () => {
       }}
     >
       <Stack.Screen
-        name="index"
-        options={{
-          headerShown: false,
-          headerTitle: "Di tích",
-          headerTitleAlign: "center",
-        }}
-      ></Stack.Screen>
-      <Stack.Screen
         name="[id]"
         options={{
           headerTitle: "Di tích",
@@ -28,7 +20,8 @@ const HerritageLayout = () => {
         }}
       ></Stack.Screen>
     </Stack>
+    
   );
 };
 
-export default HerritageLayout;
+export default HerritageDetailsLayout;
