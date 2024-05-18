@@ -1,83 +1,94 @@
 import React, { useState } from "react";
 import {
+  StyleSheet,
   View,
+  TextInput,
+  TouchableOpacity,
   Text,
   Image,
   FlatList,
-  TouchableOpacity,
-  StyleSheet,
   ImageBackground,
-  TextInput,
 } from "react-native";
-import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { Link, router } from "expo-router";
 
-const events = [
-  {
-    id: 1,
-    text: "Lễ hội Hoa Ban",
-    uri: "https://vnmedia.vn/file/8a10a0d36ccebc89016ce0c6fa3e1b83/8a10a0d36d961641016db9c9fa273c32/022022/1_20220214152059.jpg",
-  },
-  {
-    id: 2,
-    text: "Lễ hội Hoa Anh Đào",
-    uri: "https://afamilycdn.com/150157425591193600/2023/12/10/3281055004221258734345941997230514713636857n-1-1702166075638480154269-1702178556587-17021785579251079420961.jpg",
-  },
-  {
-    id: 3,
-    text: "Chợ phiên Tủa Chùa",
-    uri: "https://i.ytimg.com/vi/DDvNhP-R0eY/sddefault.jpg",
-  },
-  {
-    id: 4,
-    text: "Lễ hội Thành Bản Phù",
-    uri: "https://baovanhoa.vn/Portals/0/EasyDNNnews/51472/A1.jpg",
-  },
-  {
-    id: 5,
-    text: "Kỷ niệm chiến thắng Điện Biên Phủ",
-    uri: "https://mediafile.qdnd.vn//images/2024/3/12/cover-3.jpg",
-  },
-  {
-    id: 6,
-    text: "Tết cổ truyền",
-    uri: "https://gdtd.1cdn.vn/2023/11/28/khong-khi-tet.jpeg",
-  },
-  {
-    id: 7,
-    text: "Hương sắc Điện Biên",
-    uri: "https://imagev3.dantocmiennui.vn/w1000/Uploaddtmn/2017/3/17/85-1.JPG",
-  },
-];
-
-const Event = () => {
+const indexHerritage = () => {
   const [searchText, setSearchText] = useState("");
 
   const handleSearch = () => {
     console.log("Giá trị searchText:", searchText);
   };
 
-  const router = useRouter();
+  const [data] = useState([
+    {
+      id: 1,
+      uri: require("../../../assets/Heritage/Buc_tranh_Panorama.jpg"),
+      text: "Bức tranh Panorama về chiến dịch Điện Biên Phủ",
+    },
+    {
+      id: 2,
+      uri: require("../../../assets/Heritage/Bao_tang_DBP.jpg"),
+      text: "Bảo tàng Chiến thắng Lịch sử Điện Biên Phủ",
+    },
+    {
+      id: 3,
+      uri: require("../../../assets/Heritage/Tuong_dai_chien_thang.jpg"),
+      text: "Tượng đài Chiến thắng",
+    },
+    {
+      id: 4,
+      uri: require("../../../assets/Heritage/doi_A1.jpg"),
+      text: "Đồi A1",
+    },
+    {
+      id: 5,
+      uri: require("../../../assets/Heritage/Ham_De_Carter.jpg"),
+      text: "Hầm Đờ-cát",
+    },
+    {
+      id: 6,
+      uri: require("../../../assets/Heritage/Nghia_trang_doi_A1.jpg"),
+      text: "Nghĩa trang đồi A1",
+    },
+    {
+      id: 7,
+      uri: require("../../../assets/Heritage/So_chi_huy_DBP.jpg"),
+      text: "Sở chỉ huy chiến dịch Điện Biên Phủ",
+    },
+    {
+      id: 8,
+      uri: require("../../../assets/Heritage/Tuong_dai_keo_phao.jpg"),
+      text: "Tường đài Kéo pháo",
+    },
+    {
+      id: 9,
+      uri: require("../../../assets/Heritage/Thanh_ban_phu.jpg"),
+      text: "Thành Bản Phủ (đền thờ Hoàng Công Chất)",
+    },
+  ]);
 
-  const renderItem = ({ item }) => (
+  const itemsPerRow = 2;
+
+  const renderImageItem = ({ item }) => (
     <TouchableOpacity
-      style={styles.item}
-      onPress={() => router.push(`/event/${item.id}`)}
+      onPress={() => router.push(`/herritage/${item.id}`)}
+      style={styles.imageContainer}
     >
-      <Image source={{ uri: item.uri }} style={styles.image} />
-      <Text style={styles.text}>{item.text}</Text>
+      <Image source={item.uri} style={styles.image} />
+      <Text style={styles.text}> {item.text}</Text>
     </TouchableOpacity>
   );
 
   return (
     <FlatList
-      data={events}
-      renderItem={renderItem}
+      data={data}
+      renderItem={renderImageItem}
       keyExtractor={(item) => item.id.toString()}
+      numColumns={itemsPerRow}
       contentContainerStyle={styles.list}
       ListHeaderComponent={
         <ImageBackground
-          source={require("../../../assets/Festivals/4.jpg")} 
+          source={require("../../../assets/AnhDienBien.jpg")} 
           style={styles.headerBackground}
           imageStyle={{ borderRadius: 30 }}
         >
@@ -113,10 +124,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 200, 
     justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    resizeMode: "cover",
-    marginBottom: 30,
+    alignItems: 'center', 
+    marginBottom: 20,
     marginTop: 50,
   },
   container: {
@@ -154,24 +163,24 @@ const styles = StyleSheet.create({
   },
   list: {
     padding: 10,
-    height: 2200,
+    height: 1390,
   },
-  item: {
-    marginBottom: 20,
-    borderRadius: 10,
-    marginHorizontal: 10,
-    overflow: "hidden",
-    backgroundColor: "#fff",
-    elevation: 2,
+  imageContainer: {
+    flex: 1,
+    margin: 10,
+    alignItems: "center",
   },
   image: {
-    width: "100%",
-    height: 200,
+    width: 150,
+    height: 150,
+    borderRadius: 10,
+    resizeMode: "cover",
   },
   text: {
-    padding: 10,
-    fontSize: 18,
+    marginTop: 5,
+    textAlign: "center",
+    width: 150,
   },
 });
 
-export default Event;
+export default indexHerritage;

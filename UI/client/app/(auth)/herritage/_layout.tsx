@@ -1,7 +1,7 @@
 import React from "react";
 import { Stack } from "expo-router";
 
-const EventLayout = () => {
+const HerritageLayout = () => {
   return (
     <Stack
       screenOptions={{
@@ -15,15 +15,15 @@ const EventLayout = () => {
       <Stack.Screen
         name="index"
         options={{
-          headerTitle: "Sự kiện",
           headerShown: false,
+          headerTitle: "Di tích",
           headerTitleAlign: "center",
         }}
       ></Stack.Screen>
       <Stack.Screen
         name="[id]"
         options={{
-          headerTitle: "Chi tiết Sự kiện",
+          headerTitle: "Di tích",
           headerTitleAlign: "center",
         }}
       ></Stack.Screen>
@@ -31,4 +31,4 @@ const EventLayout = () => {
   );
 };
 
-export default EventLayout;
+export default HerritageLayout;
