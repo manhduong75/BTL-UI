@@ -16,6 +16,7 @@ const EventLayout = () => {
         name="index"
         options={{
           headerTitle: "Sự kiện",
+          headerShown: false,
           headerTitleAlign: "center",
         }}
       ></Stack.Screen>

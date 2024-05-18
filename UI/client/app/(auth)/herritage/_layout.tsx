@@ -15,6 +15,7 @@ const HerritageLayout = () => {
       <Stack.Screen
         name="index"
         options={{
+          headerShown: false,
           headerTitle: "Di tích",
           headerTitleAlign: "center",
         }}

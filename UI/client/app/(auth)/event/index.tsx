@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -6,8 +6,11 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
+  ImageBackground,
+  TextInput,
 } from "react-native";
 import { useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 
 const events = [
   {
@@ -48,6 +51,12 @@ const events = [
 ];
 
 const Event = () => {
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearch = () => {
+    console.log("Giá trị searchText:", searchText);
+  };
+
   const router = useRouter();
 
   const renderItem = ({ item }) => (
@@ -61,24 +70,96 @@ const Event = () => {
   );
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={events}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
-      />
-    </View>
+    <FlatList
+      data={events}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id.toString()}
+      contentContainerStyle={styles.list}
+      ListHeaderComponent={
+        <ImageBackground
+          source={require("../../../assets/Festivals/4.jpg")} 
+          style={styles.headerBackground}
+          imageStyle={{ borderRadius: 30 }}
+        >
+          <View style={styles.container}>
+            <View style={styles.searchContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Tìm kiếm..."
+                value={searchText}
+                onChangeText={setSearchText}
+              />
+              <TouchableOpacity
+                style={styles.searchButton}
+                onPress={handleSearch}
+              >
+                <Ionicons
+                  name="search"
+                  size={24}
+                  color="black"
+                  style={styles.searchIcon}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ImageBackground>
+      }
+    />
   );
 };
 
 const styles = StyleSheet.create({
+  headerBackground: {
+    width: '100%',
+    height: 200, 
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    resizeMode: "cover",
+    marginBottom: 30,
+    marginTop: 50,
+  },
   container: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  searchContainer: {
+    marginTop: 195,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: "gray",
+    paddingHorizontal: 10,
     flex: 1,
+    marginHorizontal: 30,
+  },
+  input: {
+    flex: 1,
+    height: 40,
+    marginLeft: 10,
+  },
+  searchIcon: {
+    marginRight: 10,
+  },
+  searchButton: {
+    paddingVertical: 10,
+    borderRadius: 20,
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  list: {
     padding: 10,
+    height: 2200,
   },
   item: {
     marginBottom: 20,
     borderRadius: 10,
+    marginHorizontal: 10,
     overflow: "hidden",
     backgroundColor: "#fff",
     elevation: 2,

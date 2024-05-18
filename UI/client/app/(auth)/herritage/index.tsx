@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-// import { StyleSheet, View, Text } from "react-native";
-
 import {
   StyleSheet,
   View,
@@ -9,14 +7,12 @@ import {
   Text,
   Image,
   FlatList,
-  Button,
-  ScrollView,
+  ImageBackground,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Link, router } from "expo-router";
 
 const indexHerritage = () => {
-  const [currentPage, setCurrentPage] = useState(1);
   const [searchText, setSearchText] = useState("");
 
   const handleSearch = () => {
@@ -66,21 +62,20 @@ const indexHerritage = () => {
     },
     {
       id: 9,
-      uri: require("../../../assets/Heritage/Den_Tho_Liet_Si_A1.jpg"),
+      uri: require("../../../assets/Heritage/Thanh_ban_phu.jpg"),
       text: "Thành Bản Phủ (đền thờ Hoàng Công Chất)",
     },
   ]);
 
   const itemsPerRow = 2;
 
-  const totalPages = Math.ceil(data.length / itemsPerRow);
-  const renderImageItem = ({item,}: {item: { id: number; uri: any ; text: string };}) => (
+  const renderImageItem = ({ item }) => (
     <TouchableOpacity
       onPress={() => router.push(`/herritage/${item.id}`)}
       style={styles.imageContainer}
     >
-        <Image source={item.uri } style={styles.image} />
-        <Text style={styles.text}> {item.text}</Text>
+      <Image source={item.uri} style={styles.image} />
+      <Text style={styles.text}> {item.text}</Text>
     </TouchableOpacity>
   );
 
@@ -92,41 +87,57 @@ const indexHerritage = () => {
       numColumns={itemsPerRow}
       contentContainerStyle={styles.list}
       ListHeaderComponent={
-        <View style={styles.container}>
-          <View style={styles.searchContainer}>
-            <TextInput
-              style={styles.input}
-              placeholder="Tìm kiếm..."
-              value={searchText}
-              onChangeText={setSearchText}
-            />
-            <TouchableOpacity
-              style={styles.searchButton}
-              onPress={handleSearch}
-            >
-              <Ionicons
-                name="search"
-                size={24}
-                color="black"
-                style={styles.searchIcon}
+        <ImageBackground
+          source={require("../../../assets/AnhDienBien.jpg")} 
+          style={styles.headerBackground}
+          imageStyle={{ borderRadius: 30 }}
+        >
+          <View style={styles.container}>
+            <View style={styles.searchContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Tìm kiếm..."
+                value={searchText}
+                onChangeText={setSearchText}
               />
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.searchButton}
+                onPress={handleSearch}
+              >
+                <Ionicons
+                  name="search"
+                  size={24}
+                  color="black"
+                  style={styles.searchIcon}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
+        </ImageBackground>
       }
     />
   );
 };
 
 const styles = StyleSheet.create({
+  headerBackground: {
+    width: '100%',
+    height: 200, 
+    justifyContent: 'center',
+    alignItems: 'center', 
+    marginBottom: 20,
+    marginTop: 50,
+  },
   container: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },
   searchContainer: {
+    marginTop: 195,
     flexDirection: "row",
     alignItems: "center",
+    backgroundColor: "white",
     borderWidth: 1,
     borderRadius: 20,
     borderColor: "gray",
@@ -143,9 +154,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   searchButton: {
-    // backgroundColor: '#fff',
     paddingVertical: 10,
-    // paddingHorizontal: 20,
     borderRadius: 20,
   },
   buttonText: {
@@ -154,14 +163,14 @@ const styles = StyleSheet.create({
   },
   list: {
     padding: 10,
-    height: 1200,
+    height: 1390,
   },
   imageContainer: {
     flex: 1,
     margin: 10,
     alignItems: "center",
   },
-  image: {  
+  image: {
     width: 150,
     height: 150,
     borderRadius: 10,
@@ -171,12 +180,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
     textAlign: "center",
     width: 150,
-  },
-  paginationContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 10,
   },
 });
 
