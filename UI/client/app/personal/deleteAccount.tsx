@@ -12,7 +12,7 @@ import {
 const data = [
   {
     key: "1",
-    text: "Tất cả các thông tin tài khoản của bạn (bao gồm thông tin đặt lịch khám, hồ sơ sức khỏe của các thành viên trong gia đình...) sẽ bị xóa.",
+    text: "Tất cả các thông tin tài khoản của bạn sẽ bị xóa.",
   },
   {
     key: "2",

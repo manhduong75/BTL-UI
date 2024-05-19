@@ -13,7 +13,14 @@ const CommentLayout = () => {
         headerBackTitle: "Back",
       }}
     >
-      <Stack.Screen name="comment"></Stack.Screen>
+      <Stack.Screen
+        name="comment"
+        options={{
+          headerTitle: "Cộng đồng",
+          headerTitleAlign: "center",
+          headerTitleStyle: { fontSize: 22 },
+        }}
+      ></Stack.Screen>
     </Stack>
   );
 };

@@ -74,6 +74,11 @@ const Festival = () => {
               </TouchableOpacity>
             </View>
           </View>
+          {/* <View>
+              <Text style={{ color: "red", fontSize: 25 }}>
+                Các Sự kiện - Lễ hội tại Điện Biên
+              </Text>
+          </View> */}
         </ImageBackground>
       }
     />
@@ -89,7 +94,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     resizeMode: "cover",
     marginBottom: 30,
-    marginTop: 50,
+    //marginTop: 50,
   },
   container: {
     flexDirection: "row",
