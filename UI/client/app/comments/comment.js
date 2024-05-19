@@ -76,24 +76,32 @@ class CommentManager {
       .map((comment) => this.commentMapper(comment));
   }
 }
-function CommentItem({ comment, addComment }) {
+function CommentItem({ comment, onAddChildComment: onAddChildCommentProp }) {
   const [showChildren, setShowChildren] = useState(false);
   const { user } = useUser();
   const [showAddComponent, setShowAddComponent] = useState(false);
   const [childComment, setChildComment] = useState("");
+  const { sendComment } = useSendComment();
+  const [reloadComments, setReloadComments] = useState(false);
+  const listOfComments = useFetchComments(reloadComments);
 
   const toggleChildrenVisibility = () => {
     setShowChildren(!showChildren);
   };
 
   const onAddChildComment = () => {
-    if (addComment && typeof addComment === "function") {
-      addComment(comment.id, childComment); // Sử dụng addComment ở đây
+    if (childComment.trim()) {
+      sendComment(childComment, comment.id)
+        .then(() => {
+          setChildComment("");
+          setShowAddComponent(false);
+          setReloadComments(!reloadComments);
+        })
+        .catch((error) => {
+          console.error("Failed to send comment:", error);
+        });
     }
-    setChildComment("");
-    setShowAddComponent(false);
   };
-
   return (
     <View style={styles.comment}>
       <View style={styles.userHeader}>
