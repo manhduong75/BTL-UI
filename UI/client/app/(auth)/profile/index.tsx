@@ -17,6 +17,7 @@ import {
   EvilIcons,
   FontAwesome6,
   Entypo,
+  FontAwesome,
 } from "@expo/vector-icons";
 import Colors from "../../../constants/Colors";
 import { Link } from "expo-router";
@@ -127,6 +128,17 @@ const Profile = () => {
       {isSignedIn && (
         <View style={styles.card}>
           <Text style={styles.header}>Cài đặt</Text>
+          <Link href={"/comments/comment"} asChild>
+            <TouchableOpacity style={styles.option}>
+              <View style={styles.icon}>
+                <FontAwesome name="commenting" size={24} color="#EB841C" />
+              </View>
+              <View style={styles.title}>
+                <Text>Cộng đồng thảo luận</Text>
+                <EvilIcons name="chevron-right" size={30} color="grey" />
+              </View>
+            </TouchableOpacity>
+          </Link>
           <Link href={"/personal/changePassword"} asChild>
             <TouchableOpacity style={styles.option}>
               <View style={styles.icon}>

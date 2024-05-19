@@ -198,7 +198,7 @@ function App() {
 
   return (
     <View style={styles.app}>
-      <Text style={styles.header}>Bình luận</Text>
+      <Text style={styles.header}>Thảo luận</Text>
       <View style={styles.commentsContainer}>
         <Image source={{ uri: user?.imageUrl }} style={styles.avatar} />
         <TextInput

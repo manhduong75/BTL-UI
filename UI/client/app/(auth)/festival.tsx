@@ -13,7 +13,7 @@ import {
 import { Link, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 const { width: screenWidth } = Dimensions.get("window");
-import events from "../data/Event"
+import events from "../data/Event";
 
 const Festival = () => {
   const [searchText, setSearchText] = useState("");
@@ -31,7 +31,7 @@ const Festival = () => {
       <Link
         href={{
           pathname: "/eventDetail/[id]",
-          params: { id: item.id }
+          params: { id: item.id },
         }}
       >
         <View style={styles.item}>
@@ -50,7 +50,7 @@ const Festival = () => {
       contentContainerStyle={styles.list}
       ListHeaderComponent={
         <ImageBackground
-          source={require("../../assets/event/4.jpg")} 
+          source={require("../../assets/event/4.jpg")}
           style={styles.headerBackground}
         >
           <View style={styles.container}>
@@ -87,10 +87,10 @@ const Festival = () => {
 
 const styles = StyleSheet.create({
   headerBackground: {
-    width: '100%',
-    height: 200, 
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "100%",
+    height: 200,
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 10,
     resizeMode: "cover",
     marginBottom: 30,
@@ -136,10 +136,12 @@ const styles = StyleSheet.create({
   item: {
     marginBottom: 20,
     borderRadius: 10,
-    marginHorizontal: 10,
+    marginHorizontal: 20,
     overflow: "hidden",
     backgroundColor: "#fff",
     elevation: 2,
+    alignItems: "center",
+    width: screenWidth - 40,
   },
   image: {
     width: screenWidth,
@@ -147,7 +149,9 @@ const styles = StyleSheet.create({
   },
   text: {
     padding: 10,
-    fontSize: 18,
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
 

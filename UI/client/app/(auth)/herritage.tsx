@@ -23,24 +23,24 @@ const indexHerritage = () => {
     );
     setFilteredEvents(filtered);
   };
-  
 
   const itemsPerRow = 2;
   const renderImageItem = ({ item }) => (
     <View style={styles.imageContainer}>
-    <Link
+      <Link
         href={{
           pathname: "/herritageDetail/[id]",
-          params: { id: item.id }
-        }}>
-      <View style={styles.imageContainer}>
-      <Image source={item.image} style={styles.image} />
-      <Text style={styles.text}> {item.title}</Text>
-      </View>
-    </Link>
+          params: { id: item.id },
+        }}
+      >
+        <View style={styles.imageContainer}>
+          <Image source={item.image} style={styles.image} />
+          <Text style={styles.text}> {item.title}</Text>
+        </View>
+      </Link>
     </View>
   );
-  
+
   return (
     <FlatList
       data={filteredEvents}
@@ -49,35 +49,35 @@ const indexHerritage = () => {
       numColumns={itemsPerRow}
       contentContainerStyle={styles.list}
       ListHeaderComponent={
-      <View>
-        <ImageBackground
-          source={require("../../assets/AnhDienBien.jpg")} 
-          style={styles.headerBackground}
-          // imageStyle={{ borderRadius: 30 }}
-        >
-          <View style={styles.container}>
-            <View style={styles.searchContainer}>
-              <TextInput
-                style={styles.input}
-                placeholder="Tìm kiếm..."
-                value={searchText}
-                onChangeText={setSearchText}
-              />
-              <TouchableOpacity
-                style={styles.searchButton}
-                onPress={handleSearch}
-              >
-                <Ionicons
-                  name="search"
-                  size={24}
-                  color="black"
-                  style={styles.searchIcon}
+        <View>
+          <ImageBackground
+            source={require("../../assets/AnhDienBien.jpg")}
+            style={styles.headerBackground}
+            // imageStyle={{ borderRadius: 30 }}
+          >
+            <View style={styles.container}>
+              <View style={styles.searchContainer}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Tìm kiếm..."
+                  value={searchText}
+                  onChangeText={setSearchText}
                 />
-              </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.searchButton}
+                  onPress={handleSearch}
+                >
+                  <Ionicons
+                    name="search"
+                    size={24}
+                    color="black"
+                    style={styles.searchIcon}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </ImageBackground>
-      </View>
+          </ImageBackground>
+        </View>
       }
     />
   );
@@ -85,10 +85,10 @@ const indexHerritage = () => {
 
 const styles = StyleSheet.create({
   headerBackground: {
-    width: '100%',
-    height: 200, 
-    justifyContent: 'center',
-    alignItems: 'center', 
+    width: "100%",
+    height: 200,
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 20,
     //marginTop: 50,
   },
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
-    margin: 5,
+    margin: 10,
     paddingBottom: 10,
     alignItems: "center",
   },
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     width: 180,
     height: 100,
     borderRadius: 10,
-    resizeMode: "cover",  
+    resizeMode: "cover",
   },
   text: {
     marginTop: 5,
