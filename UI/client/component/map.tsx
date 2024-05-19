@@ -24,8 +24,8 @@ export default function Map() {
 
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity onPress={focusMap} style={{ marginRight: 10 }}>
+      headerLeft: () => (
+        <TouchableOpacity onPress={focusMap} style={{ marginLeft: 10 }}>
           <Entypo name="location-pin" size={28} color="white" />
         </TouchableOpacity>
       ),

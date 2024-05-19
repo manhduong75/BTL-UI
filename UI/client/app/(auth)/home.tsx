@@ -20,6 +20,7 @@ import heritage from "../data/HerirtageData";
 import { Link } from "expo-router";
 import scenicSpots from "../data/ScenicSpots";
 import instance from "../../utils/axios";
+import CommentForm from "../comments/comment";
 const getWidth = Dimensions.get("window").width;
 
 const Home = () => {
@@ -58,10 +59,10 @@ const Home = () => {
       }
     };
 
-    if (user.id && user.fullName) {
+    if (user.id) {
       createUser();
     }
-  }, [user.id, user.fullName]);
+  }, [user.id]);
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -230,6 +231,7 @@ const styles = StyleSheet.create({
   serviceItem: {
     paddingBottom: 10,
   },
+  comment: {},
 });
 
 export default Home;
