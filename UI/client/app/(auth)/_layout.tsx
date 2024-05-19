@@ -1,14 +1,16 @@
-import { Tabs } from "expo-router";
+import { Link, Tabs } from "expo-router";
 import {
   Ionicons,
   FontAwesome5,
   MaterialIcons,
   AntDesign,
   Entypo,
+  FontAwesome,
 } from "@expo/vector-icons";
-import { Pressable } from "react-native";
+import { Pressable, TouchableOpacity, View } from "react-native";
 import { useAuth } from "@clerk/clerk-expo";
 import React from "react";
+import CommentForm from "../comments/comment";
 
 export const LogoutButton = () => {
   const { signOut } = useAuth();
@@ -21,6 +23,15 @@ export const LogoutButton = () => {
     <Pressable onPress={doLogout} style={{ marginRight: 10 }}>
       <Ionicons name="log-out-outline" size={24} color={"#fff"} />
     </Pressable>
+  );
+};
+export const CommentButton = () => {
+  return (
+    <Link href="/comments/comment" asChild>
+      <TouchableOpacity style={{ marginRight: 15 }}>
+        <FontAwesome name="commenting" size={24} color="white" />
+      </TouchableOpacity>
+    </Link>
   );
 };
 
@@ -85,6 +96,7 @@ const TabsPage = () => {
       <Tabs.Screen
         name="home"
         options={{
+          headerRight: () => <CommentButton />,
           headerTitle: "Trang chủ",
           headerTitleStyle: {
             fontSize: 22,

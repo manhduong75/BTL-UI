@@ -9,8 +9,7 @@ import {
   StyleSheet,
   Image,
   Pressable,
-  KeyboardAvoidingView,
-  Platform,
+  ScrollView,
 } from "react-native";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -18,98 +17,83 @@ import {
   MaterialCommunityIcons,
   SimpleLineIcons,
 } from "@expo/vector-icons";
-const generateUUID = () => {
-  let d = new Date().getTime();
-  const uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-    const r = (d + Math.random() * 16) % 16 | 0;
-    d = Math.floor(d / 16);
-    return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);
-  });
-  return uuid;
-};
+import useFetchComments from "../../hook/useFetchComments";
+import useSendComment from "../../hook/useSendComment";
 
-const getNewComment = (commentValue, isRootNode = false, parentNodeId) => {
-  return {
-    id: generateUUID(),
-    commentText: commentValue,
-    childCommments: [],
-    isRootNode,
-    parentNodeId,
-  };
-};
+class CommentManager {
+  constructor() {
+    this.comments = {};
+  }
 
-const initialState = {};
+  generateUUID() {
+    let d = new Date().getTime();
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+      const r = (d + Math.random() * 16) % 16 | 0;
+      d = Math.floor(d / 16);
+      return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);
+    });
+  }
 
-function App() {
-  const { user } = useUser();
-  const [comments, setComments] = useState(initialState);
-  const [rootComment, setRootComment] = useState("");
-  const addComment = (parentId, newCommentText) => {
+  getNewComment(commentValue, isRootNode = false, parentNodeId) {
+    return {
+      id: this.generateUUID(),
+      commentText: commentValue,
+      childCommments: [],
+      isRootNode,
+      parentNodeId,
+    };
+  }
+
+  addComment(parentId, newCommentText) {
     let newComment = null;
     if (parentId) {
-      newComment = getNewComment(newCommentText, false, parentId);
-      setComments((comments) => ({
-        ...comments,
-        [parentId]: {
-          ...comments[parentId],
-          childCommments: [...comments[parentId].childCommments, newComment.id],
-        },
-      }));
+      newComment = this.getNewComment(newCommentText, false, parentId);
+      this.comments[parentId] = {
+        ...this.comments[parentId],
+        childCommments: [
+          ...this.comments[parentId].childCommments,
+          newComment.id,
+        ],
+      };
     } else {
-      newComment = getNewComment(newCommentText, true, null);
+      newComment = this.getNewComment(newCommentText, true, null);
     }
-    setComments((comments) => ({ ...comments, [newComment.id]: newComment }));
-  };
-  const commentMapper = (comment) => {
+    this.comments[newComment.id] = newComment;
+  }
+
+  commentMapper(comment) {
     return {
       ...comment,
       childCommments: comment.childCommments
-        .map((id) => comments[id])
-        .map((comment) => commentMapper(comment)),
+        .map((id) => this.comments[id])
+        .map((comment) => this.commentMapper(comment)),
     };
-  };
-  const enhancedComments = Object.values(comments)
-    .filter((comment) => !comment.parentNodeId)
-    .map(commentMapper);
-  const onAdd = () => {
-    addComment(null, rootComment);
-    setRootComment("");
-  };
-  return (
-    <View style={styles.app}>
-      <Text style={styles.header}>Bình luận</Text>
-      <View style={styles.commentsContainer}>
-        <Image source={{ uri: user?.imageUrl }} style={styles.avatar} />
-        <TextInput
-          style={styles.input}
-          value={rootComment}
-          onChangeText={setRootComment}
-          placeholder="Viết bình luận..."
-        />
-        <Pressable title="Bình luận" onPress={onAdd}>
-          <MaterialIcons name="send" size={30} color="grey" />
-        </Pressable>
-      </View>
-      <View style={styles.comments}>
-        {enhancedComments.map((comment, key) => (
-          <Comment key={key} comment={comment} addComment={addComment} />
-        ))}
-      </View>
-    </View>
-  );
-}
+  }
 
-const Comment = ({ comment, addComment }) => {
-  const { commentText, childCommments, id } = comment;
-  const [childComment, setChildComment] = useState("");
-  const [show, setShow] = useState(true);
-  const [showAddComponent, setShowAddComponent] = useState(false);
+  getEnhancedComments() {
+    return Object.values(this.comments)
+      .filter((comment) => !comment.parentNodeId)
+      .map((comment) => this.commentMapper(comment));
+  }
+}
+function CommentItem({ comment, addComment }) {
+  const [showChildren, setShowChildren] = useState(false);
   const { user } = useUser();
+  const [showAddComponent, setShowAddComponent] = useState(false);
+  const [childComment, setChildComment] = useState("");
+
+  const toggleChildrenVisibility = () => {
+    setShowChildren(!showChildren);
+  };
+
   const onAddChildComment = () => {
-    addComment(id, childComment);
+    if (addComment && typeof addComment === "function") {
+      addComment(comment.id, childComment); // Sử dụng addComment ở đây
+    }
     setChildComment("");
     setShowAddComponent(false);
   };
+
   return (
     <View style={styles.comment}>
       <View style={styles.userHeader}>
@@ -119,14 +103,17 @@ const Comment = ({ comment, addComment }) => {
         <Text style={styles.userName}>{user.fullName}</Text>
       </View>
       <View style={styles.commentHeader}>
-        <Text style={styles.textIndent}>{commentText}</Text>
-        {childCommments.length > 0 && (
+        <Text style={styles.textIndent}>{comment.message}</Text>
+        {comment.children && comment.children.length > 0 && (
           <TouchableOpacity
             style={styles.arrowDown}
-            title={show ? "Ẩn" : "Hiện"}
-            onPress={() => setShow(!show)}
+            onPress={toggleChildrenVisibility}
           >
-            <SimpleLineIcons name="arrow-down" size={20} color="grey" />
+            <SimpleLineIcons
+              name={showChildren ? "arrow-up" : "arrow-down"}
+              size={20}
+              color="grey"
+            />
           </TouchableOpacity>
         )}
       </View>
@@ -154,14 +141,91 @@ const Comment = ({ comment, addComment }) => {
           </View>
         </TouchableOpacity>
       )}
-      {show &&
-        childCommments.map((childCommentEl, key) => (
-          <Comment key={key} comment={childCommentEl} addComment={addComment} />
-        ))}
+      {showChildren && comment.children && comment.children.length > 0 && (
+        <View style={styles.childComments}>
+          {comment.children.map((childComment) => (
+            <CommentItem key={childComment.id} comment={childComment} />
+          ))}
+        </View>
+      )}
     </View>
   );
-};
+}
+function App() {
+  const { user } = useUser();
+  const [commentManager] = useState(new CommentManager());
+  const [rootComment, setRootComment] = useState("");
+  const [comments, setComments] = useState([]);
+  const [reloadComments, setReloadComments] = useState(false);
+  const listOfComments = useFetchComments(reloadComments);
+  const { sendComment, isLoading, error } = useSendComment();
 
+  const onAdd = async () => {
+    if (!rootComment.trim()) {
+      console.log("Cannot add an empty comment.");
+      return;
+    }
+    try {
+      const newComment = await sendComment(rootComment);
+      setComments([...comments, newComment]);
+      setRootComment("");
+      setReloadComments(!reloadComments);
+    } catch (error) {
+      console.error("Error sending comment:", error);
+    }
+  };
+  const handleAddComment = async (parentId, commentText) => {
+    try {
+      const newComment = await sendComment(commentText, parentId); // Assuming sendComment can handle parentId for child comments
+      setComments((prevComments) => {
+        // Find the parent comment and add the new comment to its children
+        const updatedComments = prevComments.map((comment) => {
+          if (comment.id === parentId) {
+            return {
+              ...comment,
+              children: [...(comment.children || []), newComment],
+            };
+          }
+          return comment;
+        });
+        return updatedComments;
+      });
+      setReloadComments(!reloadComments); // Optionally reload comments to reflect the changes
+    } catch (error) {
+      console.error("Error adding child comment:", error);
+    }
+  };
+
+  return (
+    <View style={styles.app}>
+      <Text style={styles.header}>Bình luận</Text>
+      <View style={styles.commentsContainer}>
+        <Image source={{ uri: user?.imageUrl }} style={styles.avatar} />
+        <TextInput
+          style={styles.input}
+          value={rootComment}
+          onChangeText={setRootComment}
+          placeholder="Viết bình luận..."
+        />
+        <Pressable title="Bình luận" onPress={onAdd}>
+          <MaterialIcons name="send" size={30} color="grey" />
+        </Pressable>
+      </View>
+      <ScrollView style={styles.comments}>
+        {Array.isArray(listOfComments) &&
+          listOfComments.map((comment) => (
+            <CommentItem
+              key={comment.id}
+              comment={comment}
+              addComment={handleAddComment}
+            />
+          ))}
+      </ScrollView>
+    </View>
+  );
+}
+
+// Styles remain unchanged
 const styles = StyleSheet.create({
   app: {
     padding: 20,
@@ -203,7 +267,9 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: "#d2d4d2",
   },
-  comments: {},
+  comments: {
+    marginBottom: 150,
+  },
   comment: {
     marginBottom: 10,
     paddingLeft: 30,
