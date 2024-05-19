@@ -1,10 +1,16 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, ScrollView, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+} from "react-native";
 import { useGlobalSearchParams, useLocalSearchParams } from "expo-router";
 const { width: screenWidth } = Dimensions.get("window");
 import events from "../data/Event";
 import { useNavigation, useRoute } from "@react-navigation/native";
-
 
 const EventDetailScreen = () => {
   const id = useGlobalSearchParams().id;
@@ -22,13 +28,15 @@ const EventDetailScreen = () => {
   return (
     <View style={styles.container}>
       <ScrollView>
-      <Image source={event.image} style={styles.image} />
-      <View style={styles.info}>
-        <Text style={styles.head}> {event.title} </Text>
+        <Image source={event.image} style={styles.image} />
+        <View style={styles.info}>
+          <Text style={styles.head}> {event.title} </Text>
           {event.text.map((segment, index) => (
-            <Text style={styles.text} key={index}>{segment}</Text>
+            <Text style={styles.text} key={index}>
+              {segment}
+            </Text>
           ))}
-      </View>
+        </View>
       </ScrollView>
     </View>
   );
@@ -57,7 +65,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "center",
     margin: 20,
-    color: "#3e8ded",
+    color: "#EB841C",
   },
   text: {
     fontSize: 17,

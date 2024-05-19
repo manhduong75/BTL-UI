@@ -1,15 +1,23 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, ScrollView, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+} from "react-native";
 import { useGlobalSearchParams, useLocalSearchParams } from "expo-router";
 const { width: screenWidth } = Dimensions.get("window");
 import ScenicSpots from "../data/ScenicSpots";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
-
 const ScenicSpotDetailScreen = () => {
   const id = useGlobalSearchParams().id;
   const ScenicSpotId = Array.isArray(id) ? id[0] : id;
-  const ScenicSpot = ScenicSpots.find((e) => e.id === parseInt(ScenicSpotId, 10));
+  const ScenicSpot = ScenicSpots.find(
+    (e) => e.id === parseInt(ScenicSpotId, 10)
+  );
 
   if (!ScenicSpot) {
     return (
@@ -22,13 +30,15 @@ const ScenicSpotDetailScreen = () => {
   return (
     <View style={styles.container}>
       <ScrollView>
-      <Image source={ScenicSpot.image} style={styles.image} />
-      <View style={styles.info}>
-        <Text style={styles.head}> {ScenicSpot.name} </Text>
+        <Image source={ScenicSpot.image} style={styles.image} />
+        <View style={styles.info}>
+          <Text style={styles.head}> {ScenicSpot.name} </Text>
           {ScenicSpot.description.map((segment, index) => (
-            <Text style={styles.text} key={index}>{segment}</Text>
+            <Text style={styles.text} key={index}>
+              {segment}
+            </Text>
           ))}
-      </View>
+        </View>
       </ScrollView>
     </View>
   );
@@ -57,7 +67,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "center",
     margin: 20,
-    color: "#3e8ded",
+    color: "#EB841C",
   },
   text: {
     fontSize: 17,

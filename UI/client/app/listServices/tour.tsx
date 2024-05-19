@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   pagingText: { fontSize: windowWidth / 30, color: "#c6cacc", margin: 3 },
-  pagingActiveText: { fontSize: windowWidth / 30, color: "#1eb2e8", margin: 3 },
+  pagingActiveText: { fontSize: windowWidth / 30, color: "#EB841C", margin: 3 },
   title: {
     marginTop: 50,
     display: "flex",
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "center",
     margin: 20,
-    color: "#3e8ded",
+    color: "#EB841C",
   },
   body: {
     fontSize: 17,
