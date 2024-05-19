@@ -48,7 +48,10 @@ const TabsPage = () => {
         name="herritage"
         options={{
           headerTitle: "Di tích",
-          headerShown: false,
+          headerTitleStyle: {
+            fontSize: 22,
+          },
+          //headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="temple-buddhist" size={size} color={color} />
           ),
@@ -56,6 +59,7 @@ const TabsPage = () => {
           tabBarLabelStyle: {
             fontSize: 12,
           },
+          headerTitleAlign: "center",
         }}
         redirect={!isSignedIn}
       />
@@ -63,7 +67,10 @@ const TabsPage = () => {
         name="festival"
         options={{
           headerTitle: "Sự kiện",
-          headerShown: false,
+          headerTitleStyle: {
+            fontSize: 22,
+          },
+          //headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="calendar-day" size={24} color={color} />
           ),
@@ -71,6 +78,7 @@ const TabsPage = () => {
           tabBarLabelStyle: {
             fontSize: 12,
           },
+          headerTitleAlign: "center",
         }}
         redirect={!isSignedIn}
       />

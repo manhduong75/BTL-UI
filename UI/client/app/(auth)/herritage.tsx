@@ -49,6 +49,7 @@ const indexHerritage = () => {
       numColumns={itemsPerRow}
       contentContainerStyle={styles.list}
       ListHeaderComponent={
+      <View>
         <ImageBackground
           source={require("../../assets/AnhDienBien.jpg")} 
           style={styles.headerBackground}
@@ -76,6 +77,7 @@ const indexHerritage = () => {
             </View>
           </View>
         </ImageBackground>
+      </View>
       }
     />
   );
@@ -88,7 +90,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center', 
     marginBottom: 20,
-    marginTop: 50,
+    //marginTop: 50,
   },
   container: {
     flexDirection: "row",
