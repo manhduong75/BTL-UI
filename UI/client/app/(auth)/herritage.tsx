@@ -15,9 +15,13 @@ import herritages from "../data/HerirtageData";
 
 const indexHerritage = () => {
   const [searchText, setSearchText] = useState("");
+  const [filteredEvents, setFilteredEvents] = useState(herritages);
 
   const handleSearch = () => {
-    console.log("Giá trị searchText:", searchText);
+    const filtered = herritages.filter((herritage) =>
+      herritage.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredEvents(filtered);
   };
   
 
@@ -39,7 +43,7 @@ const indexHerritage = () => {
   
   return (
     <FlatList
-      data={herritages}
+      data={filteredEvents}
       renderItem={renderImageItem}
       keyExtractor={(item) => item.id.toString()}
       numColumns={itemsPerRow}
