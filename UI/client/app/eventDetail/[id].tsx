@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Image, StyleSheet, ScrollView, Dimensions } from "react-native";
 import { useGlobalSearchParams, useLocalSearchParams } from "expo-router";
 const { width: screenWidth } = Dimensions.get("window");
-import events from "../data/HerirtageData";
+import events from "../data/Event";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 
