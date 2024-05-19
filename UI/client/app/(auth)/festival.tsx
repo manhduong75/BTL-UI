@@ -17,39 +17,41 @@ import events from "../data/Event"
 
 const Festival = () => {
   const [searchText, setSearchText] = useState("");
+  const [filteredEvents, setFilteredEvents] = useState(events);
 
   const handleSearch = () => {
-    console.log("Giá trị searchText:", searchText);
+    const filtered = events.filter((event) =>
+      event.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredEvents(filtered);
   };
-
-  const router = useRouter();
 
   const renderImageItem = ({ item }) => (
     <View style={styles.item}>
-    <Link
+      <Link
         href={{
           pathname: "/eventDetail/[id]",
           params: { id: item.id }
-        }}>
-      <View style={styles.item}>
-      <Image source={item.image} style={styles.image} />
-      <Text style={styles.text}> {item.title}</Text>
-      </View>
-    </Link>
+        }}
+      >
+        <View style={styles.item}>
+          <Image source={item.image} style={styles.image} />
+          <Text style={styles.text}> {item.title}</Text>
+        </View>
+      </Link>
     </View>
   );
 
   return (
     <FlatList
-      data={events}
+      data={filteredEvents}
       renderItem={renderImageItem}
       keyExtractor={(item) => item.id.toString()}
       contentContainerStyle={styles.list}
       ListHeaderComponent={
         <ImageBackground
-          source={require("../../assets/Festivals/4.jpg")} 
+          source={require("../../assets/event/4.jpg")} 
           style={styles.headerBackground}
-          // imageStyle={{ borderRadius: 30 }}
         >
           <View style={styles.container}>
             <View style={styles.searchContainer}>
