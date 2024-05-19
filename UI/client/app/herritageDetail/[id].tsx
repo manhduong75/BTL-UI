@@ -2,16 +2,16 @@ import React from "react";
 import { View, Text, Image, StyleSheet, ScrollView, Dimensions } from "react-native";
 import { useGlobalSearchParams, useLocalSearchParams } from "expo-router";
 const { width: screenWidth } = Dimensions.get("window");
-import foods from "../../data/Food";
+import herritages from "../data/HerirtageData";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 
 const HerritageDetailScreen = () => {
   const id = useGlobalSearchParams().id;
-  const foodId = Array.isArray(id) ? id[0] : id;
-  const food = foods.find((e) => e.id === parseInt(foodId, 10));
+  const herritageId = Array.isArray(id) ? id[0] : id;
+  const herritage = herritages.find((e) => e.id === parseInt(herritageId, 10));
 
-  if (!food) {
+  if (!herritage) {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Di tích không tồn tại</Text>
@@ -22,10 +22,12 @@ const HerritageDetailScreen = () => {
   return (
     <View style={styles.container}>
       <ScrollView>
-      <Image source={food.image} style={styles.image} />
+      <Image source={herritage.image} style={styles.image} />
       <View style={styles.info}>
-        <Text style={styles.head}> {food.name} </Text>
-            <Text style={styles.text}>{food.description}</Text>
+        <Text style={styles.head}> {herritage.title} </Text>
+          {herritage.text.map((segment, index) => (
+            <Text style={styles.text} key={index}>{segment}</Text>
+          ))}
       </View>
       </ScrollView>
     </View>

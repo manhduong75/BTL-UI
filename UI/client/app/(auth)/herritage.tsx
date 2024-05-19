@@ -11,86 +11,48 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Link, router } from "expo-router";
+import herritages from "../data/HerirtageData";
 
 const indexHerritage = () => {
   const [searchText, setSearchText] = useState("");
+  const [filteredEvents, setFilteredEvents] = useState(herritages);
 
   const handleSearch = () => {
-    console.log("Giá trị searchText:", searchText);
+    const filtered = herritages.filter((herritage) =>
+      herritage.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredEvents(filtered);
   };
-
-  const [data] = useState([
-    {
-      id: 1,
-      uri: require("../../../assets/Heritage/Buc_tranh_Panorama.jpg"),
-      text: "Bức tranh Panorama về chiến dịch Điện Biên Phủ",
-    },
-    {
-      id: 2,
-      uri: require("../../../assets/Heritage/Bao_tang_DBP.jpg"),
-      text: "Bảo tàng Chiến thắng Lịch sử Điện Biên Phủ",
-    },
-    {
-      id: 3,
-      uri: require("../../../assets/Heritage/Tuong_dai_chien_thang.jpg"),
-      text: "Tượng đài Chiến thắng",
-    },
-    {
-      id: 4,
-      uri: require("../../../assets/Heritage/doi_A1.jpg"),
-      text: "Đồi A1",
-    },
-    {
-      id: 5,
-      uri: require("../../../assets/Heritage/Ham_De_Carter.jpg"),
-      text: "Hầm Đờ-cát",
-    },
-    {
-      id: 6,
-      uri: require("../../../assets/Heritage/Nghia_trang_doi_A1.jpg"),
-      text: "Nghĩa trang đồi A1",
-    },
-    {
-      id: 7,
-      uri: require("../../../assets/Heritage/So_chi_huy_DBP.jpg"),
-      text: "Sở chỉ huy chiến dịch Điện Biên Phủ",
-    },
-    {
-      id: 8,
-      uri: require("../../../assets/Heritage/Tuong_dai_keo_phao.jpg"),
-      text: "Tường đài Kéo pháo",
-    },
-    {
-      id: 9,
-      uri: require("../../../assets/Heritage/Thanh_ban_phu.jpg"),
-      text: "Thành Bản Phủ (đền thờ Hoàng Công Chất)",
-    },
-  ]);
+  
 
   const itemsPerRow = 2;
-
   const renderImageItem = ({ item }) => (
-    <TouchableOpacity
-      onPress={() => router.push(`/herritage/${item.id}`)}
-      style={styles.imageContainer}
-    >
-      <Image source={item.uri} style={styles.image} />
-      <Text style={styles.text}> {item.text}</Text>
-    </TouchableOpacity>
+    <View style={styles.imageContainer}>
+    <Link
+        href={{
+          pathname: "/herritageDetail/[id]",
+          params: { id: item.id }
+        }}>
+      <View style={styles.imageContainer}>
+      <Image source={item.image} style={styles.image} />
+      <Text style={styles.text}> {item.title}</Text>
+      </View>
+    </Link>
+    </View>
   );
-
+  
   return (
     <FlatList
-      data={data}
+      data={filteredEvents}
       renderItem={renderImageItem}
       keyExtractor={(item) => item.id.toString()}
       numColumns={itemsPerRow}
       contentContainerStyle={styles.list}
       ListHeaderComponent={
         <ImageBackground
-          source={require("../../../assets/AnhDienBien.jpg")} 
+          source={require("../../assets/AnhDienBien.jpg")} 
           style={styles.headerBackground}
-          imageStyle={{ borderRadius: 30 }}
+          // imageStyle={{ borderRadius: 30 }}
         >
           <View style={styles.container}>
             <View style={styles.searchContainer}>
@@ -162,24 +124,26 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   list: {
-    padding: 10,
-    height: 1390,
+    // padding: 5,
+    height: 1150,
   },
   imageContainer: {
     flex: 1,
-    margin: 10,
+    margin: 5,
+    paddingBottom: 10,
     alignItems: "center",
   },
   image: {
-    width: 150,
-    height: 150,
+    width: 180,
+    height: 100,
     borderRadius: 10,
-    resizeMode: "cover",
+    resizeMode: "cover",  
   },
   text: {
     marginTop: 5,
     textAlign: "center",
     width: 150,
+    fontWeight: "bold",
   },
 });
 

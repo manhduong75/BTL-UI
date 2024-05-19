@@ -16,6 +16,7 @@ const _listServiceLayout = () => {
       <Stack.Screen
         name="listFood"
         options={{
+          headerShown: false,
           headerTitle: "Ẩm thực",
           headerTitleAlign: "center",
         }}

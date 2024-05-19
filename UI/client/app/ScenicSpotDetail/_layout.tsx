@@ -1,9 +1,7 @@
 import React from "react";
 import { Stack } from "expo-router";
-import FoodDetail from "./[id]";
-import Food from "./food";
 
-const FoodLayout = () => {
+const ScenicSpotDetailLayout = () => {
   return (
     <Stack
       screenOptions={{
@@ -15,22 +13,15 @@ const FoodLayout = () => {
       }}
     >
       <Stack.Screen
-        name="food"
-        options={{
-          headerTitle: "Ẩm thực",
-          headerTitleAlign: "center",
-
-        }}
-      />
-      <Stack.Screen
         name="[id]"
         options={{
-          headerTitle: "Chi tiết món ăn",
+          headerTitle: "Danh lam thắng cảnh",
           headerTitleAlign: "center",
         }}
-      />
+      ></Stack.Screen>
     </Stack>
+    
   );
 };
 
-export default FoodLayout;
+export default ScenicSpotDetailLayout;
